@@ -4,12 +4,10 @@
 	</head>
 	<body>
 		<form action="">
-			<input type="text">
-			<input type="text">
-			<input type="text">
-			<input type="">			
+			Usuario<input type="text">
+			Latitud<input type="text">
+			Longitud<input type="text">
+			Fecha<input type="date">			
 		</form>
-
-
 	</body>
 </html>
