@@ -14,20 +14,30 @@ class usertrack()
 		$this->latitud=$lat;
 		$this->longitud=$long;
 		$this->fecha=$time;
-
 	}
 
-	function insertar()
+	function insertarPosicion($idusuario,$lat,$long)
 	{
+		var nuevoID=getNuevoIdPos();
 		//consulta
 		var $sql="insert into posicionamiento(id_posicionamiento,id_usuario,latitud,longitud,fecha)";
 		$sql.="values ()"
 		
 
 	}
-	function leerDatos($idUsuario)
+	function getPosicion($idUsuario)
 	{
 		
+
+	}
+	function getPosiciones()
+	{
+		
+
+	}
+	function getNuevoIdPos()
+	{
+		var $sql="select (MAX id_posicionamiento)+1 from posicionamiento"
 
 	}
 }

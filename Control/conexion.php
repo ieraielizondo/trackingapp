@@ -1,9 +1,9 @@
 <?php
 class Conexion{
-	var $userDB="trackingapp";
-	var	$passDB="trackingapp";
-	var	$hostDB="localhost";
-	var	$DBname="trackingapp";
+	private $userDB="trackingapp";
+	private	$passDB="trackingapp";
+	private	$hostDB="localhost";
+	private	$DBname="trackingapp";
 	function __construct()
 	{
 				
@@ -18,8 +18,15 @@ class Conexion{
 		catch(PDOException $e)
 		{
 			echo '<script> alert("¡Error!: ' . $e->getMessage() . ')</script>';
-			return;
+			return (-1);
 		}	
+	}
+	public function ejecutarConsulta($sql)
+	{
+		var $resultado =new array();
+		
+		
+		
 	}
 }
 ?>
