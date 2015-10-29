@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-	<title></title>
+	<title>Test Slim</title>
 </head>
 <body>
 <h2>Kaixo <?php echo $nombre?></h2>

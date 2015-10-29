@@ -6,7 +6,7 @@ Slim\Slim::registerAutoloader();
 $app= new \Slim\Slim();
 $app->config(array(
 	'debug' =>true ,
-	'templates.path' =>'/Vista'););
+	'templates.path' =>'Vista',));
 
 $app-> get('/',function(){
 	echo "Pagina inicio con SLIM";
