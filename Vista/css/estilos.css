@@ -1,0 +1,50 @@
+@charset "utf8";
+
+body {
+	margin: 0;
+}
+
+.header {
+	width: 100%;
+	height: auto;
+	background-color: #5864c0;
+}
+
+.headerContent {
+	width: 280px;
+	height: auto;
+	margin: 0 auto;
+	display: block;
+}
+
+.titulo {
+	float: left;
+	margin-top: 10px;
+	color: white;
+	font-family: Arial;
+}
+
+.nav {
+	height: 40px;
+	background: #c1f5ba;
+}
+
+.nav ul {
+	margin: 0;
+	padding: 0;
+}
+
+.nav ul li {
+	list-style: none;
+
+}
+
+.nav ul li a {
+	text-decoration: none;
+	float: left;
+	display: block;
+	padding: 10px 20px;
+}
+.nav ul li a:hover {
+	
+}

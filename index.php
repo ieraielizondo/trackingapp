@@ -13,7 +13,7 @@ $app-> get('/',function(){
 });
 
 $app-> get('/usuario/:nombre',function($nombre) use ($app){
-	$app->render('template.php',array('nombre'=>$nombre));
+	$app->render('tmp_inicio.php',array('nombre'=>$nombre));
 });
 
 $app->run();
