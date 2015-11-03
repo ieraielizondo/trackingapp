@@ -10,7 +10,7 @@ $app->config(array(
 	'debug' =>true ,
 	'templates.path' =>'Vista',));
 
-//$bd=DbConnect();
+//$bd=new PDO
 
 $app-> get('/',function(){
 	session_start();
@@ -27,13 +27,18 @@ $app-> get('/',function(){
 	
 });
 
+ $app-> get('/usuario/:nombre',function($nombre) use ($app){
+
+	$app->render('tmp_user.php',array('nombre'=>$nombre));
+ });
+
 $app-> get('/usuarios',function() use ($app){
 	
 
 	//capturar la conexion a BBDD
 	
 	$bd=DbConnect();
-	$sql='SELECT id_usuario,usuario, nombre, apellido1 FROM usuario';
+	$sql='SELECT id_usuario,nombre, ape1, ape2 FROM usuarios';
 	$dbquery=$bd->prepare($sql);
 	$dbquery->execute();
 	$data['usuarios']=$dbquery->fetchAll(PDO::FETCH_ASSOC);

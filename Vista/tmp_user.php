@@ -26,10 +26,8 @@
 			<h2>Usuarios</h2>
 		</header>
 		<div class="contenido">
-			<?php
-				echo '<pre>';
-				print_r($usuarios);
-			?>
+			<h2>Kaixo <?php echo $nombre ?></h2>
+			<p>Este es el template</p>
 			
 		</div>
 			
