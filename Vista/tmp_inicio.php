@@ -6,22 +6,33 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0">
 </head>
 <body>
-	<div id="cabecera" class="header">
-		<a class="titulo">TrackingApp</a>
-		
-		<div id="contentCabecera" class="headerContent">		
-			<div class="nav">
+	<header id="main-header">
+		<a id="titulo" href="#">
+			<span class="site-name">TrackingApp</span>
+			<span class="site-desc">Web de tracking.</span>
+		</a>
+		<nav>
 			<ul>
 				<li><a href="#">Inicio</a></li>
 				<li><a href="#">Posiciones</a></li>
 				<li><a href="#">LogOut</a></li>
 			</ul>
+		</nav>
+	</header>
 
-				
-			</div>
+
+	<section>
+		<header>
+			<h2>Usuarios</h2>
+		</header>
+		<div class="contenido">
+			<?php
+				echo '<pre>';
+				print_r($usuarios);
+			?>
+			
 		</div>
-	</div>
-<h2>Kaixo <?php echo $nombre ?></h2>
-<p>Este es el template</p>
+			
+	</section>			
 </body>
 </html>
