@@ -1,6 +1,6 @@
 <?php
-include 'Modelo/user_class.php';
-include 'Modelo/posUser_class.php';
+
+
 require 'vendor/autoload.php';
 Slim\Slim::registerAutoloader();
 
@@ -11,12 +11,12 @@ $app->config(array(
 	'debug' =>true ,
 	'templates.path' =>'Vista',));
 
-$app-> get('/',function(){
+$app-> get('/',function() use ($app){
 	session_start();
 	if(!isset($_SESSION['idUser']))
 	{
-		echo 'No hay sesion iniciada. Logueate para seguir.';
-		//$app->render(/*Página de login*/);
+		//echo 'No hay sesion iniciada. Logueate para seguir.';
+		$app->render('tmp_login.php');
 	}
 	else
 	{
@@ -50,11 +50,13 @@ $app-> get('/usuarios',function() use ($app){
 		}
 	});
 
-	$app->get('/nuevo/usuario',function() use($app){
-		$app->render('nuevoUsuario.php');
+	$app->get('/registro',function() use($app){
+		$app->render('tmp_login.php');
 	});
 
-	$app->post('nuevo/usuario',function() use($app){
+	$app->post('/registro',function() use($app){
+		require_once 'Modelo/user_class.php';
+		
 		$post=(object)$app->request()->post();
 		$id_usuario=$post->id_usuario;
 		$pass=$post->pass;
@@ -70,6 +72,11 @@ $app-> get('/usuarios',function() use ($app){
 			$app->flash('error','Inserción fallida');
 		}
 		$app->redirect('');
+	});
+
+	$app->post('/nuevo/posicion',function(){
+		require_once 'Modelo/posUser_class.php';
+
 	});
 
 function DbConnect(){

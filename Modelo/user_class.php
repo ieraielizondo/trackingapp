@@ -1,7 +1,6 @@
 <?php
 require '../Control/BD/BD.php'
-class Usuario()
-{
+ class Usuario{
 	
 	private $mid_usuario;
 	private $mnombre;
