@@ -55,15 +55,23 @@ $app-> get('/usuarios',function() use ($app){
 	});
 
 	$app->post('/registro',function() use($app){
-		require_once 'Modelo/user_class.php';
+		//require_once 'Modelo/user_class.php';
 		
-		$post=(object)$app->request()->post();
-		$id_usuario=$post->id_usuario;
-		$pass=$post->pass;
-		$nombre=$post->nombre;
-		$ape1=$post->apellido1;
-		$ape2=$post->apellido2;
-		$email=$post->email;
+		$req=$app->request();
+		$id_usuario=$req->post('idUsuario');
+		$pass=$req->post("pass");
+		$nombre=$req->post("nombre");
+		$ape1=$req->post("ape1");
+		$ape2=$req->post("ape2");
+		$email=$req->post("email");
+
+		/*echo "Usuario->".$id_usuario;
+		echo "<br>pass->".$pass;
+		echo "<br>passMD5->".md5($pass);
+		echo "<br>nombre->".$nombre;
+		echo "<br>apellido1->".$ape1;
+		echo "<br>apellido2->".$ape2;
+		echo "<br>email->".$email;*/
 
 		$result=Usuario::registrarUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email);
 		if($result){
@@ -71,7 +79,7 @@ $app-> get('/usuarios',function() use ($app){
 		}else{
 			$app->flash('error','Inserción fallida');
 		}
-		$app->redirect('');
+		$app->redirect('');*/
 	});
 
 	$app->post('/nuevo/posicion',function(){
