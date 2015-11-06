@@ -1,5 +1,5 @@
 <?php
-require '../Control/BD/BD.php'
+include 'Control/BD/BD.php';
  class Usuario{
 	
 	private $mid_usuario;
@@ -11,15 +11,15 @@ require '../Control/BD/BD.php'
 	private $mvalidado;
 		
 	//Constructor de la clase
-	public function __construct($idusu,$nom,$ape1,$ape2,$email,$pass,$vali=null)
+	public function __construct()
 	{
-		$this->mid_usuario=$idusu;
-		$this->mnombre=$nom;
-		$this->mapellido1=$ape1;
-		$this->mapellido2=$ape2;
-		$this->memail=$email;
-		$this->mpass=$pass;
-		$this->mvalidado=$vali;
+		$this->mid_usuario="";
+		$this->mnombre="";
+		$this->mapellido1="";
+		$this->mapellido2="";
+		$this->memail="";
+		$this->mpass="";
+		$this->mvalidado="";
 	}
 
 	//************************
@@ -29,7 +29,7 @@ require '../Control/BD/BD.php'
 	//ID_USUARIO
 	public function setIdUsuario($idUsu)
 	{
-		$this->mid_usuario=$idusu;
+		$this->mid_usuario=$idUsu;
 	}
 	public function getIdUsuario()
 	{
@@ -61,20 +61,20 @@ require '../Control/BD/BD.php'
 	{
 		$this->mapellido2=$ape2;
 	}
-	public function getApellido1()
+	public function getApellido2()
 	{
 		return $this->mapellido2;
 	}
 
 	//EMAIL
+	public function setEmail($email)
+	{
+		$this->memail=$email;
+	}
 	public function getEmail()
 	{
 		return $this->memail;
-	}
-	public function setEmail($email)
-	{
-		$this->email=$memail;
-	}
+	}	
 
 	//PASSWORD
 	public function setPass($Pass)
@@ -99,13 +99,15 @@ require '../Control/BD/BD.php'
 	//******************************
 	//SECCION INTERACCIÓN CON BBDD *
 	//******************************
-	public static function registrarUsuario($id_usuario,$pass,$nombre,$ape1,$ape2=NULL,$email){
+	public function registrarUsuario(){
+
+		//return $this->getIdUsuario();
 		$retVal=1;//0->KO / 1->OK / 2->Existe el usuario
 		
 		//Antes de insertar comprobar que no exista el mismo id_usuario
-		$sql="SELECT id_usuario FROM usuarios WHERE id_usuario=:id";
+		$sql="SELECT id_usuario FROM usuario WHERE id_usuario=:id";
 		$comando=Conexion::getInstance()->getDb()->prepare($sql);
-		$comando->execute(array("id"=>$id_usuario));
+		$comando->execute(array(":id"=>$this->getIdUsuario()));
 
 		$cuenta=$comando->rowCount();
 
@@ -113,21 +115,24 @@ require '../Control/BD/BD.php'
 		{
 			$retVal=2;
 			return $retVal;
-		}else{
+		}
+		else{
 			//si la cuenta da 0 insertar
-			$sql="INSERT INTO usuarios(id_usuario,pass,nombre,ape1,ape2,email)VALUES
+			$sql="INSERT INTO usuario(id_usuario,pass,nombre,apellido1,apellido2,email)VALUES
 			(:id,:pass,:nombre,:ape1,:ape2,:email)";
 			$comando=null;
-			$comando=Conexion::getInstance()->getDb()-prepare($sql);
-			$comando->execute(array("id"=>$id_usuario,"pas"=>md5($pass),"nombre"=>$nombre,
-				"ape1"=>$ape1,"ape2"=>$ape2,"email"=>$email));
+			$comando=Conexion::getInstance()->getDb()->prepare($sql);
+			$comando->execute(array("id"=>$this->getIdUsuario(),"pass"=>md5($this->getPass()),"nombre"=>$this->getNombreUsuario(),
+				"ape1"=>$this->getApellido1(),"ape2"=>$this->getApellido2(),"email"=>$this->getEmail()));
 			$cuenta=$comando->rowCount();
+
 			if($cuenta==0)//si no ha afectado a ninguna línea...
 			{
 				$retVal=0;
 				return $retVal;
 			}
-			
+
+			return $retVal;			
 		}
 
 
