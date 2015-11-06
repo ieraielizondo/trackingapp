@@ -25,7 +25,7 @@ $app-> get('/',function() use ($app){
 		echo 'Hola, '.$_SESSION['idUser'];
 		//$app->render(/*Página de inicio con el usuario*/,array('iduser' =>$_SESSION['idUser'] ));
 	}	
-});
+})->name('Inicio');
 
  $app-> get('/usuario/:nombre',function($nombre) use ($app){
 	$app->render('tmp_user.php',array('nombre'=>$nombre));
@@ -63,23 +63,23 @@ $app-> get('/usuarios',function() use ($app){
 		$ape2=$req->post("ape2");
 		$email=$req->post("email");
 
-		echo "Usuario->".$id_usuario;
+		/*echo "Usuario->".$id_usuario;
 		echo "<br>pass->".$pass;
 		echo "<br>passMD5->".md5($pass);
 		echo "<br>nombre->".$nombre;
 		echo "<br>apellido1->".$ape1;
 		echo "<br>apellido2->".$ape2;
-		echo "<br>email->".$email;
+		echo "<br>email->".$email;*/
 
-		$result=nuevoUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email);//Obtener la instancia de la clase Usuario
+		$result=nuevoUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email);//insertar Usuario
 
 		
 		//$app->redirect('');
 	});
 
-	$app->post('/nuevo/posicion',function(){
+	$app->get('/nuevo/posicion',function() use ($app){
 		
-
+		$app->render('registroOK.php');
 	});
 
 	function DbConnect(){
@@ -91,7 +91,7 @@ $app-> get('/usuarios',function() use ($app){
 	}
 	function nuevoUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email){
 		//require 'Modelo/posUser_class.php';
-		require_once 'Modelo/user_class.php';
+		require_once 'Modelo/Usuario.php';
 
 		$Usuario=new Usuario();
 		//añadir valores al objeto

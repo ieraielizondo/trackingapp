@@ -1,25 +1,27 @@
 <?php
 include 'Control/BD/BD.php';
+include 'CorreoUser.php';
  class Usuario{
 	
-	private $mid_usuario;
-	private $mnombre;
-	private $mapellido1;
-	private $mapellido2;
-	private $memail;
-	private $mpass;
-	private $mvalidado;
+	private $mId_Usuario;
+	private $mNombre;
+	private $mApellido1;
+	private $mApellido2;
+	private $mEmail;
+	private $mPass;
+	private $mValidado;
+	private $mFecha;
 		
 	//Constructor de la clase
 	public function __construct()
 	{
-		$this->mid_usuario="";
-		$this->mnombre="";
-		$this->mapellido1="";
-		$this->mapellido2="";
-		$this->memail="";
-		$this->mpass="";
-		$this->mvalidado="";
+		$this->mId_Usuario="";
+		$this->mNombre="";
+		$this->mApellido1="";
+		$this->mApellido2="";
+		$this->mEmail="";
+		$this->mPass="";
+		$this->mValidado="";
 	}
 
 	//************************
@@ -29,77 +31,84 @@ include 'Control/BD/BD.php';
 	//ID_USUARIO
 	public function setIdUsuario($idUsu)
 	{
-		$this->mid_usuario=$idUsu;
+		$this->mId_Usuario=$idUsu;
 	}
 	public function getIdUsuario()
 	{
-		return $this->mid_usuario;
+		return $this->mId_Usuario;
 	}
 
 	//NOMBRE
 	public function setNombreUsuario($nom)
 	{
-		$this->mnombre=$nom;
+		$this->mNombre=$nom;
 	}
 	public function getNombreUsuario()
 	{
-		return $this->mnombre;
+		return $this->mNombre;
 	}
 
 	//APELLIDO 1
 	public function setApellido1($ape1)
 	{
-		$this->mapellido1=$ape1;
+		$this->mApellido1=$ape1;
 	}
 	public function getApellido1()
 	{
-		return $this->mapellido1;
+		return $this->mApellido1;
 	}
 
 	//APELLIDO 2
 	public function setApellido2($ape2)
 	{
-		$this->mapellido2=$ape2;
+		$this->mApellido2=$ape2;
 	}
 	public function getApellido2()
 	{
-		return $this->mapellido2;
+		return $this->mApellido2;
 	}
 
 	//EMAIL
 	public function setEmail($email)
 	{
-		$this->memail=$email;
+		$this->mEmail=$email;
 	}
 	public function getEmail()
 	{
-		return $this->memail;
+		return $this->mEmail;
 	}	
 
 	//PASSWORD
 	public function setPass($Pass)
 	{
-		$this->mpass=$Pass;
+		$this->mPass=$Pass;
 	}	
 	public function getPass()
 	{
-		return $this->mpass;
+		return $this->mPass;
 	}
 
 	//VALIDADO
 	public function setValidado($vali)
 	{
-		$this->mvalidado=$vali;
+		$this->mValidado=$vali;
 	}	
 	public function getValidado()
 	{
-		return $this->mvalidado;
+		return $this->mValidado;
+	}
+
+	//FECHA
+	public function getFecha()
+	{
+		return $this->mFecha;
 	}
 
 	//******************************
 	//SECCION INTERACCIÓN CON BBDD *
 	//******************************
 	public function registrarUsuario(){
+
 
 		//return $this->getIdUsuario();
 		$retVal=1;//0->KO / 1->OK / 2->Existe el usuario
@@ -131,6 +140,9 @@ include 'Control/BD/BD.php';
 				$retVal=0;
 				return $retVal;
 			}
+			//Enviar correo
+			$result=CorreoUser::enviarCorreoRegistro($this->getIdUsuario(),$this->getNombreUsuario(),$this->getApellido1(),$this->getEmail());
+
 
 			return $retVal;			
 		}

@@ -51,60 +51,60 @@
 							<table>
 								<tr>
 									<td><label>Id usuario</label></td>
-									<td><input id="txtLogIdUsuario" type="text" name="idUsuario"/></td>
+									<td><input id="txtLogIdUsuario" type="text" name="idUsuario" required/></td>
 								</tr>
 								<tr>
 									<td><label>Contrasena</label></td>
-									<td><input id="txtLogPasss" type="password" name="pass"/></td>
+									<td><input id="txtLogPasss" type="password" name="pass" required/></td>
 								</tr>
 								<tr>
 									<td><button type="submit">Iniciar sesion</button></td>
 								</tr>
 							</table>						
 						</form>					
-					</div>
+					</div><!--div Login-->
 					<label style="font-size:12px" id="lbMostrar">Mostrar/ Ocultar ↓</label>
 					<hr>
-						<div id="Registro" class="Registro">
-							<h2>Registro</h2>
-							<form action="index.php/registro" method="post">
-								<table>
-									<tr>
-										<td><label>Id usuario</label></td>
-										<td><input id="txtRegIdUsuario" type="text" name="idUsuario"/></td>
-									</tr>
-									<tr>
-										<td><label>Contrasena</label></td>
-										<td><input id="txtRegPass" type="password" name="pass"/></td>
-									</tr>
-									<tr>
-										<td><label>Repite contrasena</label></td>
-										<td><input id="txtRegPass2" type="password" name="validpass"/></td>
-									</tr>
-									<tr>
-										<td><label>Nombre</label></td>
-										<td><input id="txtRegNombre" type="text" name="nombre"/></td>
-									</tr>
-									<tr>
-										<td><label>Apellido1</label></td>
-										<td><input id="txtRegApe1" type="text" name="ape1"/></td>
-									</tr>
-									<tr>
-										<td><label>Apellido2</label></td>
-										<td><input id="txtRegApe2" type="text" name="ape2"/></td>
-									</tr>
-									<tr>
-										<td><label>Email</label></td>
-										<td><input id="" type="email" name="email"/></td>
-									</tr>
-									<tr>
-										<td><button type="submit">Registrarme</button></td>
-									</tr>
-								</table>							
-							</form>				
-						</div>				
-					</div>
-			</div>			
+					<div id="Registro" class="Registro">
+						<h2>Registro</h2>
+						<form action="index.php/registro" method="post">
+							<table>
+								<tr>
+									<td><label>Id usuario</label></td>
+									<td><input id="txtRegIdUsuario" type="text" name="idUsuario" required/></td>
+								</tr>
+								<tr>
+									<td><label>Contrasena</label></td>
+									<td><input id="txtRegPass" type="password" name="pass" required/></td>
+								</tr>
+								<tr>
+									<td><label>Repite contrasena</label></td>
+									<td><input id="txtRegPass2" type="password" name="validpass" required/></td>
+								</tr>
+								<tr>
+									<td><label>Nombre</label></td>
+									<td><input id="txtRegNombre" type="text" name="nombre" required/></td>
+								</tr>
+								<tr>
+									<td><label>Apellido1</label></td>
+									<td><input id="txtRegApe1" type="text" name="ape1" required/></td>
+								</tr>
+								<tr>
+									<td><label>Apellido2</label></td>
+									<td><input id="txtRegApe2" type="text" name="ape2"/></td>
+								</tr>
+								<tr>
+									<td><label>Email</label></td>
+									<td><input id="" type="email" name="email" required/></td>
+								</tr>
+								<tr>
+									<td><button type="submit">Registrarme</button></td>
+								</tr>
+							</table>							
+						</form>				
+					</div>	<!--div Registro-->			
+				</div><!--div Formularios-->
+			</div> <!--	div Container-->		
 		</section>
 	</main>
 
