@@ -13,7 +13,7 @@ $app->config(array(
 	'debug' =>true ,
 	'templates.path' =>'Vista',));
 
-$app-> get('/',function() use ($app){
+$app-> map('/',function() use ($app){
 	session_start();
 	if(!isset($_SESSION['idUser']))
 	{
@@ -25,10 +25,15 @@ $app-> get('/',function() use ($app){
 		echo 'Hola, '.$_SESSION['idUser'];
 		//$app->render(/*Página de inicio con el usuario*/,array('iduser' =>$_SESSION['idUser'] ));
 	}	
-})->name('Inicio');
+})->via('GET')->name('Inicio');
 
  $app-> get('/usuario/:nombre',function($nombre) use ($app){
 	$app->render('tmp_user.php',array('nombre'=>$nombre));
+ });
+
+ $app->get('/usuario/:id/validar',function($idUsuario) use($app){
+
+
  });
 
 $app-> get('/usuarios',function() use ($app){	
@@ -71,9 +76,9 @@ $app-> get('/usuarios',function() use ($app){
 		echo "<br>apellido2->".$ape2;
 		echo "<br>email->".$email;*/
 
-		$result=nuevoUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email);//insertar Usuario
+		nuevoUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email);//insertar Usuario
 
-		
+		//$app->redirect($app->urlFor('Inicio'));
 		//$app->redirect('');
 	});
 
@@ -110,9 +115,10 @@ $app-> get('/usuarios',function() use ($app){
 		echo "email. " .$Usuario->getEmail();*/
 		$result=$Usuario->registrarUsuario();
 		if($result==1){//0->KO / 1->OK / 2->Existe el usuario
-			$mensaje= "Usuario insertado correctamente";
+			$mensaje= "Usuario insertado correctamente. Chequéa tu correo para validar.";
 			echo $mensaje;
-			//$app->redirect('');
+			echo '<a href="">Inicio</a>';
+			
 		}else if($result==0){
 			$mensaje="Fallo la inserción";
 			echo $mensaje;
@@ -120,8 +126,18 @@ $app-> get('/usuarios',function() use ($app){
 		else{
 			$mensaje= "Ya existe el usuario";
 			echo $mensaje;
+			echo '<a href="/trackingapp/">Inicio</a>';
 		}
 		return true;
+	}
+
+	function validarUsuario($idUsuario){
+		require_once 'Modelo/Usuario.php';
+
+		$usuario=new Usuario();
+		$usuario->setValidado();
+
+
 	}
 
 $app->run();

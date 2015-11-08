@@ -141,13 +141,17 @@ include 'CorreoUser.php';
 				return $retVal;
 			}
 			//Enviar correo
-			$result=CorreoUser::enviarCorreoRegistro($this->getIdUsuario(),$this->getNombreUsuario(),$this->getApellido1(),$this->getEmail());
+			$result=CorreoUser::enviarCorreoRegistro($this->getIdUsuario(),$this->getNombreUsuario(),$this->getApellido1(),$this->getApellido2(),$this->getEmail());
 
 
 			return $retVal;			
 		}
+	}
 
+	public function validarUsuario($idUsuario){
 
+		//Comprobar que el usuario no este validado.
+		
 
 	}
 }
