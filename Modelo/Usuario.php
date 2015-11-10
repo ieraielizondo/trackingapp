@@ -127,7 +127,7 @@ include 'Utils.php';
 		}
 		else{
 			//si la cuenta da 0 insertar
-			$sql="INSERT INTO usuario(id_usuario,pass,nombre,apellido1,apellido2,email,fecha_creacion,kay_usuario)VALUES
+			$sql="INSERT INTO usuario(id_usuario,pass,nombre,apellido1,apellido2,email,fecha_creacion,key_usuario)VALUES
 			(:id,:pass,:nombre,:ape1,:ape2,:email,:fecha,:key)";
 			$key=Utils::random_string(50);
 			$comando=null;

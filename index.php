@@ -31,71 +31,53 @@ $app-> map('/',function() use ($app){
 	$app->render('tmp_user.php',array('nombre'=>$nombre));
  });
 
- $app->get('/usuario/:id/validar',function($idUsuario) use($app){
+ $app->get('/usuario/validar/:correo/:key',function($correo,$key) use($app){
 
 
  });
 
-$app-> get('/usuarios',function() use ($app){	
 
-	//capturar la conexion a BBDD
-	
-	$db=DbConnect();
-	$sql='SELECT id_usuario,nombre, ape1, ape2 FROM usuarios';
-	$dbquery=$db->prepare($sql);
-	$dbquery->execute();
-	$data['usuarios']=$dbquery->fetchAll(PDO::FETCH_ASSOC);
-
-	$app->render('tmp_usuarios.php',$data);
+$app-> post('/login',function() use ($app){
+	$post=(object)$app->request()->post();
+	if(isset($post->id_usuario) && isset($post->pass))
+	{
+		$usuario=new Usuario();
+	}
 });
 
-	$app-> post('/login',function() use ($app){
-		$post=(object)$app->request()->post();
-		if(isset($post->id_usuario) && isset($post->pass))
-		{
-			$usuario=new Usuario();
-		}
-	});
+$app->post('/registro',function() use($app){
+	require_once 'Modelo/Usuario.php';
+	
+	$req=$app->request();
+	$id_usuario=$req->post('idUsuario');
+	$pass=$req->post("pass");
+	$nombre=$req->post("nombre");
+	$ape1=$req->post("ape1");
+	$ape2=$req->post("ape2");
+	$email=$req->post("email");
 
-	$app->post('/registro',function() use($app){
-		require_once 'Modelo/Usuario.php';
-		
-		$req=$app->request();
-		$id_usuario=$req->post('idUsuario');
-		$pass=$req->post("pass");
-		$nombre=$req->post("nombre");
-		$ape1=$req->post("ape1");
-		$ape2=$req->post("ape2");
-		$email=$req->post("email");
+	/*echo "Usuario->".$id_usuario;
+	echo "<br>pass->".$pass;
+	echo "<br>passMD5->".md5($pass);
+	echo "<br>nombre->".$nombre;
+	echo "<br>apellido1->".$ape1;
+	echo "<br>apellido2->".$ape2;
+	echo "<br>email->".$email;*/
 
-		/*echo "Usuario->".$id_usuario;
-		echo "<br>pass->".$pass;
-		echo "<br>passMD5->".md5($pass);
-		echo "<br>nombre->".$nombre;
-		echo "<br>apellido1->".$ape1;
-		echo "<br>apellido2->".$ape2;
-		echo "<br>email->".$email;*/
+	Usuario::nuevoUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email);
 
-		Usuario::nuevoUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email);
+	//nuevoUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email);//insertar Usuario
 
-		//nuevoUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email);//insertar Usuario
+	//$app->redirect($app->urlFor('Inicio'));
+	//$app->redirect('');
+});
 
-		//$app->redirect($app->urlFor('Inicio'));
-		//$app->redirect('');
-	});
+$app->get('/nuevo/posicion',function() use ($app){
+	
+	$app->render('registroOK.php');
+});
+	
 
-	$app->get('/nuevo/posicion',function() use ($app){
-		
-		$app->render('registroOK.php');
-	});
-
-	function DbConnect(){
-		require_once 'Control/BD/BD.php';
-
-		//capturar la conexion a BBDD
-		$bd=Conexion::getInstance()->getDb();
-		return $bd;
-	}
 	function nuevoUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email){
 		//require 'Modelo/posUser_class.php';
 		require_once 'Modelo/Usuario.php';
@@ -133,7 +115,7 @@ $app-> get('/usuarios',function() use ($app){
 		return true;
 	}
 
-	function validarUsuario($idUsuario){
+	function validarUsuario($correo,$key){
 		require_once 'Modelo/Usuario.php';
 
 		$usuario=new Usuario();

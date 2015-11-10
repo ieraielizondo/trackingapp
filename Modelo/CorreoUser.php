@@ -2,12 +2,13 @@
 
 	require 'class.phpmailer.php';
 	include 'class.smtp.php';
-	require_once '../Control/BD/mysql_login.php';
-	include 'Utils.php';
+	
+	//include 'Utils.php';
 	//require '../vendor/phpmailer/PHPMailerAutoLoad.php';
 	date_default_timezone_set('Etc/UTC');
 
 	class CorreoUser {
+
 
 		public function __construct(){
 
@@ -39,8 +40,7 @@
 			$mail->AltBody = "Mensaje de prueba";
 			$mail->WordWrap= 50;
 
-			$urlValidar=getURLValidar($idUsuario,$key);
-			
+			$urlValidar=getURLValidar($correo,$key);			
 
 			$mensaje="<h1>Bienvenido/a ".$Nombre." ".$ape1;
 			if($ape2!="")
@@ -57,20 +57,20 @@
 			if (!$mail->send()) {
 				//echo "Error: ".$mail->ErrorInfo;
 				$retVal=false;				
-			}
-			
+			}			
 			return $retVal;
 		}
 
-		function getURLValidar($id,$key){
-			$strURL="localhost:".PUERTO
-			$strUsrEncript=Utils::encrypt($id,$key);
+		function getURLValidar($correo,$key){
+			require_once '../Control/BD/mysql_login.php';
+			$strURL="localhost:".PUERTO;
+			echo PUERTO;
 			if(PUERTO=="80")//clase
 			{
-				$strURL.="/Servidor/PHP";
+				$strURL.="/workspace/Servidor/PHP";
 			}
 			
-			$strURL.="/trackingapp/usuario/validar?usr=".$strUsrEncript."&key=".$key;
+			$strURL.="/trackingapp/usuario/validar?email=".$correo."&key=".$key;
 
 			return $strURL;
 		}
