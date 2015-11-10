@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-11-2015 a las 00:22:47
+-- Tiempo de generación: 10-11-2015 a las 00:26:33
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `posicion` (
   `longitud` double DEFAULT NULL,
   `id_usuario` varchar(50) DEFAULT NULL,
   `hora` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -47,8 +47,17 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `apellido2` varchar(50) DEFAULT NULL,
   `email` varchar(100) NOT NULL,
   `pass` varchar(255) DEFAULT NULL,
-  `validado` char(1) NOT NULL DEFAULT '0'
+  `validado` char(1) NOT NULL DEFAULT '0',
+  `fecha_creacion` datetime NOT NULL,
+  `key_usuario` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido1`, `apellido2`, `email`, `pass`, `validado`, `fecha_creacion`, `key_usuario`) VALUES
+('ierai', 'ddd', 's', 's', 'a@gmail.com', 'patata', '0', '2015-11-09 20:26:26', '');
 
 --
 -- Índices para tablas volcadas
@@ -65,7 +74,8 @@ ALTER TABLE `posicion`
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id_usuario`);
+  ADD PRIMARY KEY (`id_usuario`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -75,7 +85,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `posicion`
 --
 ALTER TABLE `posicion`
-  MODIFY `id_posicion` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
+  MODIFY `id_posicion` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Restricciones para tablas volcadas
 --

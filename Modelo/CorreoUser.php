@@ -2,6 +2,8 @@
 
 	require 'class.phpmailer.php';
 	include 'class.smtp.php';
+	require_once '../Control/BD/mysql_login.php';
+	include 'Utils.php';
 	//require '../vendor/phpmailer/PHPMailerAutoLoad.php';
 	date_default_timezone_set('Etc/UTC');
 
@@ -11,8 +13,9 @@
 
 		}
 
-		public static function enviarCorreoRegistro($idUsuario,$Nombre,$ape1,$ape2="",$correo){
+		public static function enviarCorreoRegistro($idUsuario,$Nombre,$ape1,$ape2="",$correo,$key){
 			$retVal=true;
+
 			$mail = new PHPMailer();
 			$mail->isSMTP();
 			
@@ -35,26 +38,41 @@
 			$mail->Subject = "Bienvenido a trackingApp";
 			$mail->AltBody = "Mensaje de prueba";
 			$mail->WordWrap= 50;
+
+			$urlValidar=getURLValidar($idUsuario,$key);
+			
+
 			$mensaje="<h1>Bienvenido/a ".$Nombre." ".$ape1;
 			if($ape2!="")
 			{
 				$mensaje.=" ".$ape2;
 			}
 			$mensaje.=" a trackingApp</h1><br/><br/><p>Gracias por incribirse en la app <b>App Tracking</b></p><br/>
-				<p>Su nombre de usuario: ".$idUsuario."</p>Su correo: ".$correo."<p>Ha sido inscrito correctamente, pulse en el siguiente enlace para validar:</p>";
+				<p>Su nombre de usuario: ".$idUsuario."</p>Su correo: ".$correo."<p>Ha sido inscrito correctamente, pulse en el siguiente enlace para validar:</p> <p><a href='".$urlValidar."'>".$urlValidar."</a></p>";
 			$mail->msgHTML($mensaje);
 			
 			$mail->isHTML(true);
 
 			//var_dump($mail->send());
 			if (!$mail->send()) {
-				echo "Error: ".$mail->ErrorInfo;
+				//echo "Error: ".$mail->ErrorInfo;
 				$retVal=false;				
 			}
-			else{
-				echo "Correo OK";
-			}
+			
 			return $retVal;
+		}
+
+		function getURLValidar($id,$key){
+			$strURL="localhost:".PUERTO
+			$strUsrEncript=Utils::encrypt($id,$key);
+			if(PUERTO=="80")//clase
+			{
+				$strURL.="/Servidor/PHP";
+			}
+			
+			$strURL.="/trackingapp/usuario/validar?usr=".$strUsrEncript."&key=".$key;
+
+			return $strURL;
 		}
 
 		

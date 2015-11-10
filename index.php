@@ -58,7 +58,7 @@ $app-> get('/usuarios',function() use ($app){
 	});
 
 	$app->post('/registro',function() use($app){
-		//include '/Modelo/user_class.php';
+		require_once 'Modelo/Usuario.php';
 		
 		$req=$app->request();
 		$id_usuario=$req->post('idUsuario');
@@ -76,7 +76,9 @@ $app-> get('/usuarios',function() use ($app){
 		echo "<br>apellido2->".$ape2;
 		echo "<br>email->".$email;*/
 
-		nuevoUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email);//insertar Usuario
+		Usuario::nuevoUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email);
+
+		//nuevoUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email);//insertar Usuario
 
 		//$app->redirect($app->urlFor('Inicio'));
 		//$app->redirect('');

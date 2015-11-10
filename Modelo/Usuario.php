@@ -1,6 +1,7 @@
 <?php
 include 'Control/BD/BD.php';
 include 'CorreoUser.php';
+include 'Utils.php';
  class Usuario{
 	
 	private $mId_Usuario;
@@ -107,16 +108,15 @@ include 'CorreoUser.php';
 	//******************************
 	//SECCION INTERACCIÓN CON BBDD *
 	//******************************
-	public function registrarUsuario(){
-
+	public static function nuevoUsuario($id,$pass,$nombre,$ape1,$ape2="",$email){
 
 		//return $this->getIdUsuario();
 		$retVal=1;//0->KO / 1->OK / 2->Existe el usuario
 		
-		//Antes de insertar comprobar que no exista el mismo id_usuario
-		$sql="SELECT id_usuario FROM usuario WHERE id_usuario=:id";
+		//Antes de insertar comprobar que no exista el mismo id_usuario y correo
+		$sql="SELECT id_usuario FROM usuario WHERE id_usuario=:id or email=:email";
 		$comando=Conexion::getInstance()->getDb()->prepare($sql);
-		$comando->execute(array(":id"=>$this->getIdUsuario()));
+		$comando->execute(array(":id"=>$id,":email"=>$email));
 
 		$cuenta=$comando->rowCount();
 
@@ -127,12 +127,19 @@ include 'CorreoUser.php';
 		}
 		else{
 			//si la cuenta da 0 insertar
-			$sql="INSERT INTO usuario(id_usuario,pass,nombre,apellido1,apellido2,email)VALUES
-			(:id,:pass,:nombre,:ape1,:ape2,:email)";
+			$sql="INSERT INTO usuario(id_usuario,pass,nombre,apellido1,apellido2,email,fecha_creacion,kay_usuario)VALUES
+			(:id,:pass,:nombre,:ape1,:ape2,:email,:fecha,:key)";
+			$key=Utils::random_string(50);
 			$comando=null;
 			$comando=Conexion::getInstance()->getDb()->prepare($sql);
-			$comando->execute(array("id"=>$this->getIdUsuario(),"pass"=>md5($this->getPass()),"nombre"=>$this->getNombreUsuario(),
-				"ape1"=>$this->getApellido1(),"ape2"=>$this->getApellido2(),"email"=>$this->getEmail()));
+			$comando->execute(array(":id"=>$id,
+				":pass"=>md5($pass),
+				":nombre"=>$nombre,
+				":ape1"=>$ape1,
+				":ape2"=>$ape2,
+				":email"=>$email,
+				":fecha"=>"DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i:%s')",
+				":key"=>$key));
 			$cuenta=$comando->rowCount();
 
 			if($cuenta==0)//si no ha afectado a ninguna línea...
@@ -141,14 +148,14 @@ include 'CorreoUser.php';
 				return $retVal;
 			}
 			//Enviar correo
-			$result=CorreoUser::enviarCorreoRegistro($this->getIdUsuario(),$this->getNombreUsuario(),$this->getApellido1(),$this->getApellido2(),$this->getEmail());
+			$result=CorreoUser::enviarCorreoRegistro($id,$nombre,$ape1,$ape2,$email,$key);
 
 
 			return $retVal;			
 		}
 	}
 
-	public function validarUsuario($idUsuario){
+	public static function validarUsuario($idUsuario){
 
 		//Comprobar que el usuario no este validado.
 		
