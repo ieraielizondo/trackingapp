@@ -183,13 +183,39 @@ require_once 'Utils.php';
 		
 		try{
 			//Comprobar que el usuario no este validado.
-			$sql="SELECT ";
+			$sql="SELECT id_usuario,email,key_usuario,validado FROM usuario WHERE email LIKE ':correo' and key_usuario LIKE ':key'";
+			$comando=Conexion::getInstance()->getDb()->prepare($sql);
+			$comando->execute(array(":correo"=>$correo,":key"=>$key));
 
 		}catch(PDOException $ex){
 			Utils::escribeLog("Error: ".$e->getMessage()." | Fichero: ".$e->getFile()." | Línea: ".$e->getLine()." [Error al insertar usuario]","debug");
-			$retVal=false;
+			$retVal=0;
 			return $retVal;
 		}
+		//comprobar filas
+		if($comando->rowCount()==0){			
+		
+			Utils::escribeLog("Error al buscar el usuario para validar","debug");
+			$retVal=0;
+			return $retVal;
+		}
+		//comprobar el estado de validado
+		$result=$comando->fetch(PDO::FETCH_ASSOC);
+		if($result['validado']==='1'){
+			$retVal=2;
+			return $retVal;
+		}
+		//actualizar campo validado
+		try{
+			$sql="UPDATE usuario SET validado='1'";
+			$comando=Conexion::getInstance()->getDb()->prepare($sql);
+
+		}catch (PDOException $e){
+
+		}
+		
+		
+
 
 	}
 }
