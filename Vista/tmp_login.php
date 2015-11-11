@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -35,6 +34,7 @@
 		</a>
 		<nav>
 			<ul>
+				<li><audio src="./Vista/audio.mp3" preload="auto" controls autoplay></audio></li>				
 				<li><a href="#">Inicio</a></li>
 				<li><a href="#">Posiciones</a></li>
 				<li><a href="#">LogOut</a></li>
@@ -48,7 +48,7 @@
 				<div id="formularios">
 					<div class="login">
 						<h2 style="margin-top:0px;">Iniciar sesion</h2>
-						<form action="index.php/login" method="post">
+						<form action="login" method="post">
 							<table>
 								<tr>
 									<td><label>Id usuario</label></td>
@@ -68,7 +68,7 @@
 					<hr>
 					<div id="Registro" class="Registro">
 						<h2>Registro</h2>
-						<form action="index.php/registro" method="post">
+						<form action="registro" method="post">
 							<table>
 								<tr>
 									<td><label>Id usuario</label></td>

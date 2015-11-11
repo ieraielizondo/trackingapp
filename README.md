@@ -12,3 +12,6 @@ https://www.youtube.com/watch?v=NHXa96-r8TY
 
 #Date_format() MySQL
 http://www.w3schools.com/sql/func_date_format.asp
+
+Como crear Log en PHP:
+http://gestdb.piensayactua.com/blog/?x=entry:entry120906-115334

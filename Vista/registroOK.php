@@ -13,7 +13,7 @@
 		</a>
 		<nav>
 			<ul>
-				<li><a href="index.php">Inicio</a></li>
+				<li><a href="./">Inicio</a></li>
 				<li><a href="#">Posiciones</a></li>				
 			</ul>
 		</nav>
@@ -21,7 +21,7 @@
 
 	<main>
 		<h2>Usuario registrado correctamente.</h2>
-		<p><a href="index.php">Ir a inicio</a></p>
+		<p><a href="./">Ir a inicio</a></p>
 	</main>
 </body>
 </html>

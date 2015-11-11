@@ -1,0 +1,13 @@
+body {
+  padding-top: 70px;
+}
+.starter-template {	
+	padding: 0 15px;
+	text-align: center;
+	border: 1px solid;
+	border-radius: 15px;
+	z-index: 1.67;
+	-webkit-box-shadow: 10px 9px 35px -11px rgba(0,0,0,0.54);
+	-moz-box-shadow: 10px 9px 35px -11px rgba(0,0,0,0.54);
+	box-shadow: 10px 9px 35px -11px rgba(0,0,0,0.54);
+}

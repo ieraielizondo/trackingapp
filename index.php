@@ -27,15 +27,16 @@ $app-> map('/',function() use ($app){
 	}	
 })->via('GET')->name('Inicio');
 
- $app-> get('/usuario/:nombre',function($nombre) use ($app){
-	$app->render('tmp_user.php',array('nombre'=>$nombre));
+ $app-> get('/pruebalog',function() use ($app){
+ 	require_once 'Modelo/Utils.php';
+ 	Utils::escribeLog("pre-echo","prueba");
+ 		echo "probando el log";
+ 	Utils::escribeLog("FIn de log","prueba");
  });
 
- $app->get('/usuario/validar/:correo/:key',function($correo,$key) use($app){
-
-
+ $app->get('/pruebaBootstrap',function() use ($app){
+ 	$app->render('usuarioRegistrado.php');
  });
-
 
 $app-> post('/login',function() use ($app){
 	$post=(object)$app->request()->post();
@@ -47,6 +48,9 @@ $app-> post('/login',function() use ($app){
 
 $app->post('/registro',function() use($app){
 	require_once 'Modelo/Usuario.php';
+	require_once 'Modelo/Utils.php';
+
+	Utils::escribeLog("Inicio Registro","debug");
 	
 	$req=$app->request();
 	$id_usuario=$req->post('idUsuario');
@@ -64,56 +68,42 @@ $app->post('/registro',function() use($app){
 	echo "<br>apellido2->".$ape2;
 	echo "<br>email->".$email;*/
 
-	Usuario::nuevoUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email);
-
-	//nuevoUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email);//insertar Usuario
-
-	//$app->redirect($app->urlFor('Inicio'));
-	//$app->redirect('');
+	$result=Usuario::nuevoUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email);
+	//0->KO / 1->OK / 2->Existe el usuario
+	if($result==1)
+	{
+		//Utils::escribeLog("OK","debug");
+		$mensaje="OK";
+		$app->render('registroOK.php');
+	}else if($result==0){
+		//Utils::escribeLog("KO","debug");
+		$mensaje= "KO";
+	}	
+	else if($result==2){
+		//Utils::escribeLog("Existe","debug");
+		$mensaje="Usuario o email existentes";
+	}
+	else{
+		//Utils::escribeLog("Existe","debug");
+		$mensaje="Usuario o email existentes";
+	}	
+	
 });
+
+$app->get('/usuario/validar/:correo/:key',function($correo,$key) use($app){
+	require_once 'Modelo/Usuario.php';
+	require_once 'Modelo/Utils.php';
+
+	
+
+
+ });
 
 $app->get('/nuevo/posicion',function() use ($app){
 	
 	$app->render('registroOK.php');
 });
-	
-
-	function nuevoUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email){
-		//require 'Modelo/posUser_class.php';
-		require_once 'Modelo/Usuario.php';
-
-		$Usuario=new Usuario();
-		//añadir valores al objeto
-		$Usuario->setIdUsuario($id_usuario);
-		$Usuario->setNombreUsuario($nombre);
-		$Usuario->setApellido1($ape1);
-		$Usuario->setApellido2($ape2);
-		$Usuario->setPass($pass);
-		$Usuario->setEmail($email);
-
-		/*echo "id. " .$id_usuario;//$Usuario->getIdUsuario();
-		echo "nom. " .$Usuario->getNombreUsuario();
-		echo "ap1. " .$Usuario->getApellido1();
-		echo "ap2. " .$Usuario->getApellido2();
-		echo "pass. " .$Usuario->getPass();
-		echo "email. " .$Usuario->getEmail();*/
-		$result=$Usuario->registrarUsuario();
-		if($result==1){//0->KO / 1->OK / 2->Existe el usuario
-			$mensaje= "Usuario insertado correctamente. Chequéa tu correo para validar.";
-			echo $mensaje;
-			echo '<a href="">Inicio</a>';
-			
-		}else if($result==0){
-			$mensaje="Fallo la inserción";
-			echo $mensaje;
-		}
-		else{
-			$mensaje= "Ya existe el usuario";
-			echo $mensaje;
-			echo '<a href="/trackingapp/">Inicio</a>';
-		}
-		return true;
-	}
+		
 
 	function validarUsuario($correo,$key){
 		require_once 'Modelo/Usuario.php';
