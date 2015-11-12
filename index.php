@@ -11,7 +11,7 @@ Slim\Slim::registerAutoloader();
 $app= new \Slim\Slim();
 $app->config(array(
 	'debug' =>true ,
-	'templates.path' =>'Vista',));
+	'templates.path' =>'Vista'));
 
 $app-> map('/',function() use ($app){
 	session_start();
@@ -70,22 +70,22 @@ $app->post('/registro',function() use($app){
 
 	$result=Usuario::nuevoUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email);
 	//0->KO / 1->OK / 2->Existe el usuario
-	if($result==1)
-	{
-		//Utils::escribeLog("OK","debug");
-		$mensaje="OK";
-		$app->render('registroOK.php');
-	}else if($result==0){
+	if($result==0){
 		//Utils::escribeLog("KO","debug");
-		$mensaje= "KO";
-	}	
-	else if($result==2){
+		$mensaje= "Error al registrar el usuario";
+		$app->render('info.php',array('mensaje'=>$mensaje));
+	}else if($result==1){
+		//Utils::escribeLog("OK","debug");
+		$mensaje="Usuario registrado correctamente.";
+		$app->render('info.php',array('mensaje'=>$mensaje));
+	}else if($result==2){
 		//Utils::escribeLog("Existe","debug");
 		$mensaje="Usuario o email existentes";
-	}
-	else{
+		$app->render('info.php',array('mensaje'=>$mensaje));
+	}else{
 		//Utils::escribeLog("Existe","debug");
-		$mensaje="Usuario o email existentes";
+		$mensaje="Usuario registrado, correo fallido";
+		$app->render('info.php',array('mensaje'=>$mensaje));
 	}	
 	
 });
@@ -94,25 +94,32 @@ $app->get('/usuario/validar/:correo/:key',function($correo,$key) use($app){
 	require_once 'Modelo/Usuario.php';
 	require_once 'Modelo/Utils.php';
 
+	$result=Usuario::validarUsuario($correo,$key);
+	//0-> Fail , 1->OK, 2->Ya validado,3-> OK pero correo Fail 
+	if($result==0){
+		//Utils::escribeLog("KO","debug");
+		$mensaje= "Error al validar usuario.";
+		$app->render('info.php',array('mensaje'=>$mensaje));
+	}else if($result==1){
+		//Utils::escribeLog("OK","debug");
+		$mensaje="Validación correcta. Inicia sesión para acceder.";
+		$app->render('info.php',array('mensaje'=>$mensaje));
+	}	
+	else if($result==2){
+		//Utils::escribeLog("Existe","debug");
+		$mensaje="El usuario ya está registrado";
+		$app->render('info.php',array('mensaje'=>$mensaje));
+	}else{
+		$mensaje="Usuario validad, falló envío correo.";
+		$app->render('info.php',array('mensaje'=>$mensaje));
+	}
 	
-
-
  });
 
 $app->get('/nuevo/posicion',function() use ($app){
 	
-	$app->render('registroOK.php');
+	$app->render('../../registroOK.php');
 });
-		
-
-	function validarUsuario($correo,$key){
-		require_once 'Modelo/Usuario.php';
-
-		$usuario=new Usuario();
-		$usuario->setValidado();
-
-
-	}
 
 $app->run();
 

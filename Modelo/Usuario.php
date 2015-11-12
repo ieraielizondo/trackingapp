@@ -166,7 +166,76 @@ require_once 'Utils.php';
 		Utils::escribeLog("Usuario insertado en la BBDD -> OK","debug");
 		Utils::escribeLog("Pre-envio correo","debug");
 		//Enviar correo
-		$result=CorreoUser::enviarCorreoRegistro($id,$nombre,$ape1,$ape2,$email,$key);
+		$CorreoUser=new CorreoUser();
+		$result=$CorreoUser->enviarCorreoRegistro($id,$nombre,$ape1,$ape2,$email,$key);
+
+		if(!$result){
+			//Utils::escribeLog("Error: ".$e->getMessage()." | Fichero: ".$e->getFile()." | Línea: ".$e->getLine()." [Error al enviar correo]","debug");
+			$retVal=3;
+			return $retVal;
+		}
+		Utils::escribeLog("Correo enviado OK","debug");			
+		return $retVal;	//si todo va OK deveria devolver 1	
+	}
+
+	public static function validarUsuario($correo,$key){
+		$retVal=1;//0-> Fail , 1->OK, 2->Ya validado 
+		
+		try{
+			//Comprobar que el usuario no este validado.
+			$sql="SELECT id_usuario,nombre, apellido1,apellido2,email,key_usuario,validado FROM usuario WHERE email LIKE :correo and key_usuario LIKE :key";
+			$comando=Conexion::getInstance()->getDb()->prepare($sql);
+			$comando->execute(array(":correo"=>$correo,":key"=>$key));
+
+		}catch(PDOException $ex){
+			Utils::escribeLog("Error: ".$e->getMessage()." | Fichero: ".$e->getFile()." | Línea: ".$e->getLine()." [Error al buscar el usuario para validar]","debug");
+			$retVal=0;
+			return $retVal;
+		}
+		//comprobar filas
+		$cuenta=$comando->rowCount();
+
+		if($cuenta==0){			
+		
+			Utils::escribeLog("No hay usuario para validar","debug");
+			$retVal=0;
+			return $retVal;
+		}
+		//comprobar el estado de validado
+		$result=$comando->fetch(PDO::FETCH_ASSOC);
+		$id_usuario=$result['id_usuario'];
+		$nombre=$result['nombre'];
+		$ape1=$result['apellido1'];
+		$ape2=$result['apellido2'];
+
+		if($result['validado']==='1'){
+			Utils::escribeLog("Ya está validado","debug");
+			$retVal=2;
+			return $retVal;
+		}
+		//actualizar campo validado
+		try{
+			$sql="UPDATE usuario SET validado='1' WHERE id_usuario LIKE :id";
+			$comando=Conexion::getInstance()->getDb()->prepare($sql);
+			$comando->execute(array(':id'=>$id_usuario));
+
+		}catch (PDOException $e){
+			$retVal=0;
+			Utils::escribeLog("Error: ".$e->getMessage()." | Fichero: ".$e->getFile()." | Línea: ".$e->getLine()." [Error al buscar el usuario para validar]","debug");
+			return $retVal;
+
+		}
+
+		//ver lineas afectadas
+		if($comando->rowCount()==0){
+			Utils::escribeLog("Error al validar","debug");
+			$retVal=0;
+			return $retVal;
+		}
+
+		//enviar correo de validado OK
+		$CorreoUser=new CorreoUser();
+		$result=$CorreoUser->enviarConfirmValidacion($nombre,$ape1,$ape2="",$correo);
 
 		if(!$result){
 			//Utils::escribeLog("Error: ".$e->getMessage()." | Fichero: ".$e->getFile()." | Línea: ".$e->getLine()." [Error al enviar correo]","debug");
@@ -175,44 +244,6 @@ require_once 'Utils.php';
 		}
 		Utils::escribeLog("Correo enviado OK","debug");			
 		return $retVal;	//si todo va OK deveria devolver 1		
-		
-	}
-
-	public static function validarUsuario($correo,$key){
-		$retVal=1;//0-> Fail , 1->OK, 2->Ya validado 
-		
-		try{
-			//Comprobar que el usuario no este validado.
-			$sql="SELECT id_usuario,email,key_usuario,validado FROM usuario WHERE email LIKE ':correo' and key_usuario LIKE ':key'";
-			$comando=Conexion::getInstance()->getDb()->prepare($sql);
-			$comando->execute(array(":correo"=>$correo,":key"=>$key));
-
-		}catch(PDOException $ex){
-			Utils::escribeLog("Error: ".$e->getMessage()." | Fichero: ".$e->getFile()." | Línea: ".$e->getLine()." [Error al insertar usuario]","debug");
-			$retVal=0;
-			return $retVal;
-		}
-		//comprobar filas
-		if($comando->rowCount()==0){			
-		
-			Utils::escribeLog("Error al buscar el usuario para validar","debug");
-			$retVal=0;
-			return $retVal;
-		}
-		//comprobar el estado de validado
-		$result=$comando->fetch(PDO::FETCH_ASSOC);
-		if($result['validado']==='1'){
-			$retVal=2;
-			return $retVal;
-		}
-		//actualizar campo validado
-		try{
-			$sql="UPDATE usuario SET validado='1'";
-			$comando=Conexion::getInstance()->getDb()->prepare($sql);
-
-		}catch (PDOException $e){
-
-		}
 		
 		
 
