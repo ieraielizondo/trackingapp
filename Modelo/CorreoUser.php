@@ -55,7 +55,7 @@
 				{
 					$mensaje.=" ".$ape2;
 				}
-				$mensaje.=' a trackingApp</h1><br/><br/><p>Gracias por incribirse en la app <b>App Tracking</b></p><br/>
+				$mensaje.=' a trackingApp</h1><br/><br/><p>Gracias por incribirse en la app <b>TrackingApp</b></p><br/>
 					<p>Su nombre de usuario: '.$idUsuario.'</p>Su correo: '.$correo.'
 					<p>Ha sido inscrito correctamente, para poder acceder a la aplicación debe validar su usuario. Para validar, pulse en el siguiente enlace para validar:</p> 
 					<p><a href="'.$URL.'">'.$URL.'</a></p>';
@@ -109,7 +109,7 @@
 				{
 					$mensaje.=" ".$ape2;
 				}
-				$mensaje.=' a trackingApp</h2><p>Se ha confirmado correctamente su solicitud de validación de usuario en <b>App Tracking</b></p>					
+				$mensaje.=' a trackingApp</h2><p>Se ha confirmado correctamente su solicitud de validación de usuario en <b>TrackingApp</b></p>					
 					<p>Puede iniciar sesión y acceder a la aplicación desde aquí:</p> 
 					<p><a href="'.$URL.'">'.$URL.'</a></p>';
 				$mail->msgHTML($mensaje);

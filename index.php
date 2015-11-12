@@ -121,6 +121,11 @@ $app->get('/nuevo/posicion',function() use ($app){
 	$app->render('../../registroOK.php');
 });
 
+$app->get('/prueba/redirect/desde/aqui',function() use($app){
+	$app->redirect('../')->render('info.php');
+
+});
+
 $app->run();
 
 
