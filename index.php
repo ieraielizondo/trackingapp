@@ -115,6 +115,9 @@ $app->get('/usuario/validar/:correo/:key',function($correo,$key) use($app){
 	}
 	
  });
+$app->get('/usuarios', function() use($app)){
+
+};
 
 $app->get('/nuevo/posicion',function() use ($app){
 	
