@@ -115,13 +115,13 @@ $app->get('/usuario/validar/:correo/:key',function($correo,$key) use($app){
 	}
 	
  });
-$app->get('/usuarios', function() use($app)){
+$app->get('/usuarios', function() use($app){
 
-};
+});
 
-$app->get('/nuevo/posicion',function() use ($app){
-	
-	$app->render('../../registroOK.php');
+$app->get('/nuevo',function() use ($app){
+	$mensaje="pruebabbbaaa";
+	$app->render('info.php',array('mensaje'=>$mensaje));
 });
 
 $app->get('/prueba/redirect/desde/aqui',function() use($app){
