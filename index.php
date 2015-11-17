@@ -39,10 +39,11 @@ $app-> map('/',function() use ($app){
  });
 
 $app-> post('/login',function() use ($app){
-	$post=(object)$app->request()->post();
+	$usr=$app->request()->post('usuario');
+	$pass=$app->request()->post('pass');
 	if(isset($post->id_usuario) && isset($post->pass))
 	{
-		$usuario=new Usuario();
+		$result=Usuario::comprobarUsuario()
 	}
 });
 
@@ -70,22 +71,29 @@ $app->post('/registro',function() use($app){
 
 	$result=Usuario::nuevoUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email);
 	//0->KO / 1->OK / 2->Existe el usuario
+	/*Códigos de mensajes= 
+	
+	-err_reg_usr-->Error al registrar el usuario
+	-usr_reg_OK-->Usuario registrado correctamente.
+	-usr_em_exist-->Usuario o email existentes
+	-usr_OK_em_F -->Usuario registrado, correo fallido
+	*/
 	if($result==0){
 		//Utils::escribeLog("KO","debug");
-		$mensaje= "Error al registrar el usuario";
-		$app->render('info.php',array('mensaje'=>$mensaje));
+		$mensaje= "err_reg_usr";
+		$app->redirect($app->urlfor('resultado',array('mensaje'=>$mensaje)));
 	}else if($result==1){
 		//Utils::escribeLog("OK","debug");
-		$mensaje="Usuario registrado correctamente.";
-		$app->render('info.php',array('mensaje'=>$mensaje));
+		$mensaje="usr_reg_OK";
+		$app->redirect($app->urlfor('resultado',array('mensaje'=>$mensaje)));
 	}else if($result==2){
 		//Utils::escribeLog("Existe","debug");
-		$mensaje="Usuario o email existentes";
-		$app->render('info.php',array('mensaje'=>$mensaje));
+		$mensaje="usr_em_exist";
+		$app->redirect($app->urlfor('resultado',array('mensaje'=>$mensaje)));
 	}else{
 		//Utils::escribeLog("Existe","debug");
-		$mensaje="Usuario registrado, correo fallido";
-		$app->render('info.php',array('mensaje'=>$mensaje));
+		$mensaje="usr_OK_em_F";
+		$app->redirect($app->urlfor('resultado',array('mensaje'=>$mensaje)));
 	}	
 	
 });
@@ -95,40 +103,68 @@ $app->get('/usuario/validar/:correo/:key',function($correo,$key) use($app){
 	require_once 'Modelo/Utils.php';
 
 	$result=Usuario::validarUsuario($correo,$key);
-	//0-> Fail , 1->OK, 2->Ya validado,3-> OK pero correo Fail 
+	//0-> Fail , 1->OK, 2->Ya validado,3-> OK pero correo Fail
+	/*Códigos de mensajes= 
+	*-error-->mensaje*
+	-err_usr_val-->Error al validar usuario
+	-val_OK-->Validación correcta. Inicia sesión para acceder..
+	-usr_reg-->El usuario ya está registrado
+	-usrv_OK_em_F -->Usuario validad, falló envío correo.
+	*/
 	if($result==0){
 		//Utils::escribeLog("KO","debug");
-		$mensaje= "Error al validar usuario.";
-		$app->render('info.php',array('mensaje'=>$mensaje));
+		$mensaje= "err_usr_val";
+		$app->redirect($app->urlfor('resultado',array('mensaje'=>$mensaje)));
 	}else if($result==1){
 		//Utils::escribeLog("OK","debug");
-		$mensaje="Validación correcta. Inicia sesión para acceder.";
-		$app->render('info.php',array('mensaje'=>$mensaje));
+		$mensaje="val_OK";
+		$app->redirect($app->urlfor('resultado',array('mensaje'=>$mensaje)));
 	}	
 	else if($result==2){
 		//Utils::escribeLog("Existe","debug");
-		$mensaje="El usuario ya está registrado";
-		$app->render('info.php',array('mensaje'=>$mensaje));
+		$mensaje="usr_reg";
+		$app->redirect($app->urlfor('resultado',array('mensaje'=>$mensaje)));
 	}else{
-		$mensaje="Usuario validad, falló envío correo.";
-		$app->render('info.php',array('mensaje'=>$mensaje));
+		$mensaje="usrv_OK_em_F";
+		$app->redirect($app->urlfor('resultado',array('mensaje'=>$mensaje)));
 	}
 	
  });
-$app->get('/usuarios', function() use($app){
 
-});
 
-$app->get('/nuevo',function() use ($app){
-	$mensaje="pruebabbbaaa";
+
+$app->get('/result/:mensaje',function($mensaje) use($app){
+	/*
+	-err_reg_usr-->Error al registrar el usuario
+	-usr_reg_OK-->Usuario registrado correctamente.
+	-usr_em_exist-->Usuario o email existentes
+	-usr_OK_em_F -->Usuario registrado, correo fallido
+	-err_usr_val-->Error al validar usuario
+	-val_OK-->Validación correcta. Inicia sesión para acceder..
+	-usr_reg-->El usuario ya está registrado
+	-usrv_OK_em_F -->Usuario validad, falló envío correo.
+
+	*/
+	if($mensaje==='err_reg_usr'){
+		$mensaje="Error al registrar el usuario.";
+	}else if($mensaje==='usr_reg_OK'){
+		$mensaje="Usuario registrado correctamente.";
+	}else if($mensaje==='usr_em_exist'){
+		$mensaje="Usuario o email existentes.";
+	}else if($mensaje==='usr_OK_em_F'){
+		$mensaje="Usuario registrado, correo fallido.";
+	}else if($mensaje==='err_usr_val'){
+		$mensaje="Error al validar usuario.";
+	}else if($mensaje==='val_OK'){
+		$mensaje="Validación correcta. Inicia sesión para acceder.";
+	}else if($mensaje==='usr_reg'){
+		$mensaje="El usuario ya está registrado.";
+	}else {
+		$mensaje="Usuario validad, falló envío correo.";
+	}
 	$app->render('info.php',array('mensaje'=>$mensaje));
-});
 
-$app->get('/prueba/redirect/desde/aqui',function() use($app){
-	$app->redirect('../')->render('info.php');
-
-});
-
+})->name('resultado');
 $app->run();
 
 

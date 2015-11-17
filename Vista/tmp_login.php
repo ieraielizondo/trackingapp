@@ -1,3 +1,7 @@
+<?php
+	echo "DIR: ".__DIR__."<br>";
+	echo "FILE: ".__FILE__."<br>";
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

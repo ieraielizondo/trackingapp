@@ -243,10 +243,15 @@ require_once 'Utils.php';
 			return $retVal;
 		}
 		Utils::escribeLog("Correo enviado OK","debug");			
-		return $retVal;	//si todo va OK deveria devolver 1		
-		
-		
+		return $retVal;	//si todo va OK deveria devolver 1
+	}
 
+	public static function comprobarUsuario($idUsuario,$pass){
+		$retVal=true;
+		Utils::escribeLog('inicio comprobar usuario','debug');
+
+		//comprobar en bd
+		$sql="SELECT id_usuario,nombre,apellido1,apellido2 FROM usuario WHERE id_usuario LIKE :id AND pass LIKE :pass";
 
 	}
 }

@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 	<title>Registro correcto</title>
-	<link rel="stylesheet" type="text/css" href="Vista/css/estilos.css">
+	<link rel="stylesheet" type="text/css" href="../Vista/css/estilos.css">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0">
 	</head>
 <body>
@@ -21,7 +21,7 @@
 
 	<main>
 		<h2><?php echo $mensaje ?></h2>
-		<p><a href="./">Ir a inicio</a></p>
+		<p><a href="../">Ir a inicio</a></p>
 	</main>
 </body>
 </html>
