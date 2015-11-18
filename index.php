@@ -27,13 +27,6 @@ $app-> map('/',function() use ($app){
 	}	
 })->via('GET')->name('Inicio');
 
- $app-> get('/pruebalog',function() use ($app){
- 	require_once 'Modelo/Utils.php';
- 	Utils::escribeLog("pre-echo","prueba");
- 		echo "probando el log";
- 	Utils::escribeLog("FIn de log","prueba");
- });
-
  $app->get('/pruebaBootstrap',function() use ($app){
  	$app->render('usuarioRegistrado.php');
  });
@@ -41,9 +34,18 @@ $app-> map('/',function() use ($app){
 $app-> post('/login',function() use ($app){
 	$usr=$app->request()->post('usuario');
 	$pass=$app->request()->post('pass');
-	if(isset($post->id_usuario) && isset($post->pass))
+	if(isset($usr) && isset($pass))
 	{
-		$result=Usuario::comprobarUsuario()
+		$result=Usuario::comprobarUsuario();
+		if($result){
+
+		}else{
+			//volver a inicio
+		}
+	}else
+	{
+		//mandar al inicio con mensaje
+
 	}
 });
 

@@ -251,8 +251,28 @@ require_once 'Utils.php';
 		Utils::escribeLog('inicio comprobar usuario','debug');
 
 		//comprobar en bd
-		$sql="SELECT id_usuario,nombre,apellido1,apellido2 FROM usuario WHERE id_usuario LIKE :id AND pass LIKE :pass";
+		
+		try{
+			$sql="SELECT id_usuario,nombre,apellido1 FROM usuario WHERE id_usuario LIKE :id AND pass LIKE :pass";
+			$comando=Conexion::getInstance()->getDb()->prepare($sql);
+			$comando->execute(array(":id"=>$idUsuario,":pass"=>md5($pass)));
 
+		}catch(PDOException $e){
+			$retval=false;
+			return $retVal;
+
+		}
+
+		$cuenta=$comando->rowCount();
+		if($cuenta==0){
+			$retval=false;
+			return $retVal;
+		}
+		session_start();
+		$_SESSION['id_usuario']=$comando['id_usuario'];
+		$_SESSION['nombre']=$comando['nombre'];
+		$_SESSION['apellido']=$comando['apellido1'];
+		return $retVal;
 	}
 }
 
