@@ -258,6 +258,7 @@ require_once 'Utils.php';
 			$comando->execute(array(":id"=>$idUsuario,":pass"=>md5($pass)));
 
 		}catch(PDOException $e){
+			Utils::escribeLog("Error: ".$e->getMessage()." | Fichero: ".$e->getFile()." | Línea: ".$e->getLine()." ","debug");
 			$retval=false;
 			return $retVal;
 
@@ -265,10 +266,10 @@ require_once 'Utils.php';
 
 		$cuenta=$comando->rowCount();
 		if($cuenta==0){
-			$retval=false;
+			$retVal=false;
 			return $retVal;
 		}
-		session_start();
+		
 		$_SESSION['id_usuario']=$comando['id_usuario'];
 		$_SESSION['nombre']=$comando['nombre'];
 		$_SESSION['apellido']=$comando['apellido1'];

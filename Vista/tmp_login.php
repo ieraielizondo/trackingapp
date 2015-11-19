@@ -1,14 +1,12 @@
-<?php
-	echo "DIR: ".__DIR__."<br>";
-	echo "FILE: ".__FILE__."<br>";
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
 	<title>Inicio trackingapp</title>
 	<link rel="stylesheet" type="text/css" href="./Vista/css/estilos.css">
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0">
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
+	<script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="./js/bootstrap.min.js"></script>
 	<script>
 		$(document).ready(function () {
 			$('#Registro').hide();
@@ -49,21 +47,27 @@
 	<main>
 		<section>
 			<div id="container">
+			<?php if(isset($flash['message'])):?>
+							<div class="alert alert-warning alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<strong>Atenci&oacute;n!</strong> <?php echo $flash['message']?>
+							</div>
+						<?php endif; ?>
 				<div id="formularios">
-					<div class="login">
+					<div class="login">						
 						<h2 style="margin-top:0px;">Iniciar sesion</h2>
 						<form action="login" method="post">
 							<table>
 								<tr>
 									<td><label>Id usuario</label></td>
-									<td><input id="txtLogIdUsuario" type="text" name="idUsuario" required/></td>
+									<td><input class="form-control" id="txtLogIdUsuario" type="text" name="idUsuario" required/></td>
 								</tr>
 								<tr>
 									<td><label>Contrasena</label></td>
-									<td><input id="txtLogPasss" type="password" name="pass" required/></td>
+									<td><input class="form-control" id="txtLogPasss" type="password" name="pass" required/></td>
 								</tr>
 								<tr>
-									<td><button type="submit">Iniciar sesion</button></td>
+									<td><button class="btn btn-primary" type="submit">Iniciar sesion</button></td>
 								</tr>
 							</table>						
 						</form>					
@@ -76,34 +80,34 @@
 							<table>
 								<tr>
 									<td><label>Id usuario</label></td>
-									<td><input id="txtRegIdUsuario" type="text" name="idUsuario" required/></td>
+									<td><input class="form-control" id="txtRegIdUsuario" type="text" name="idUsuario" required/></td>
 								</tr>
 								<tr>
 									<td><label>Contrasena</label></td>
-									<td><input id="txtRegPass" type="password" name="pass" required/></td>
+									<td><input class="form-control" id="txtRegPass" type="password" name="pass" required/></td>
 								</tr>
 								<tr>
 									<td><label>Repite contrasena</label></td>
-									<td><input id="txtRegPass2" type="password" name="validpass" required/></td>
+									<td><input class="form-control" id="txtRegPass2" type="password" name="validpass" required/></td>
 								</tr>
 								<tr>
 									<td><label>Nombre</label></td>
-									<td><input id="txtRegNombre" type="text" name="nombre" required/></td>
+									<td><input class="form-control" id="txtRegNombre" type="text" name="nombre" required/></td>
 								</tr>
 								<tr>
 									<td><label>Apellido1</label></td>
-									<td><input id="txtRegApe1" type="text" name="ape1" required/></td>
+									<td><input class="form-control" id="txtRegApe1" type="text" name="ape1" required/></td>
 								</tr>
 								<tr>
 									<td><label>Apellido2</label></td>
-									<td><input id="txtRegApe2" type="text" name="ape2"/></td>
+									<td><input class="form-control" id="txtRegApe2" type="text" name="ape2"/></td>
 								</tr>
 								<tr>
 									<td><label>Email</label></td>
-									<td><input id="" type="email" name="email" required/></td>
+									<td><input class="form-control" id="" type="email" name="email" required/></td>
 								</tr>
 								<tr>
-									<td><button type="submit">Registrarme</button></td>
+									<td><button class="btn btn-primary" type="submit">Registrarme</button></td>
 								</tr>
 							</table>							
 						</form>				

@@ -1,6 +1,8 @@
 <?php
 
 
+session_start();
+
 require 'vendor/autoload.php';
 
 
@@ -14,7 +16,7 @@ $app->config(array(
 	'templates.path' =>'Vista'));
 
 $app-> map('/',function() use ($app){
-	session_start();
+	
 	if(!isset($_SESSION['idUser']))
 	{
 		//echo 'No hay sesion iniciada. Logueate para seguir.';
@@ -32,20 +34,23 @@ $app-> map('/',function() use ($app){
  });
 
 $app-> post('/login',function() use ($app){
-	$usr=$app->request()->post('usuario');
-	$pass=$app->request()->post('pass');
+	require_once 'Modelo/Usuario.php';
+	
+	$usr=$app->request->post('idUsuario');
+	$pass=$app->request->post('pass');
 	if(isset($usr) && isset($pass))
 	{
-		$result=Usuario::comprobarUsuario();
+		$result=Usuario::comprobarUsuario($usr,$pass);
 		if($result){
-
+			$app->redirect($app->urlFor('Inicio'));
 		}else{
-			//volver a inicio
+			$app->flash('message',"No existe el usuario");
+			$app->redirect($app->urlFor('Inicio'));
 		}
 	}else
 	{
-		//mandar al inicio con mensaje
-
+		$app->flash('message',"Faltan datos por introducir.");
+		$app->redirect($app->urlFor('Inicio'));
 	}
 });
 
