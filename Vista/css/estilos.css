@@ -21,7 +21,13 @@ h1 {
 p {
 	margin: 0 0 1.5em 0;
 }
- 
+
+#cabecera {
+	background-color: #333;
+}
+	#cabecera a {
+		color: white;
+	}
 
 #main-header {
 	background: #333;
@@ -38,7 +44,8 @@ p {
  */
 #titulo {
 	float: left;
-	padding: 5px 0 0 20px;
+	padding: 5px 10px 0 0;
+	color: white;
 	text-decoration: none;
 }
 	#titulo:hover {
@@ -57,36 +64,36 @@ p {
 		font-size: 0.8em;
 		color: #999;
 	}
-	
  
 /*
  * Navegación
  */
-nav {
+#navv {
 	float: right;
 
 }
-	nav ul {
+	#navv ul {
 		margin: 0;
 		padding: 0;
 		list-style: none;
 		padding-right: 20px;
 	}
 	
-		nav ul li {
+		#navv ul li {
 			display: inline-block;
 			line-height: 55px;
 		}
 			
-			nav ul li a {
+			#navv ul li a {
 				display: block;
 				padding: 0 10px;
 				text-decoration: none;
 			}
 			
-				nav ul li a:hover {
+				#navv ul li a:hover {
 					background: #0b76a6;
 				}
+
 /*
 Contenido
 */

@@ -269,10 +269,10 @@ require_once 'Utils.php';
 			$retVal=false;
 			return $retVal;
 		}
-		
-		$_SESSION['id_usuario']=$comando['id_usuario'];
-		$_SESSION['nombre']=$comando['nombre'];
-		$_SESSION['apellido']=$comando['apellido1'];
+		$datos=$comando->fetch(PDO::FETCH_ASSOC);
+		$_SESSION['id_usuario']=$datos['id_usuario'];
+		$_SESSION['nombre']=$datos['nombre'];
+		$_SESSION['apellido']=$datos['apellido1'];
 		return $retVal;
 	}
 }
