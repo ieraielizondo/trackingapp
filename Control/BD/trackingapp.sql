@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-11-2015 a las 00:26:33
+-- Tiempo de generación: 20-11-2015 a las 20:20:00
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `email` varchar(100) NOT NULL,
   `pass` varchar(255) DEFAULT NULL,
   `validado` char(1) NOT NULL DEFAULT '0',
-  `fecha_creacion` datetime NOT NULL,
+  `fecha_creacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `key_usuario` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 --
 
 INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido1`, `apellido2`, `email`, `pass`, `validado`, `fecha_creacion`, `key_usuario`) VALUES
-('ierai', 'ddd', 's', 's', 'a@gmail.com', 'patata', '0', '2015-11-09 20:26:26', '');
+('Ierai', 'Ierai', 'Elizondo', 'Fernandez', 'ieraielizondo@gmail.com', '0cc175b9c0f1b6a831c399e269772661', '1', '2015-11-12 02:34:03', 'fYsTOFhiABk3O6do6r575dStUYtBwMZx4ZqWTxvDorgFdNnNJl');
 
 --
 -- Índices para tablas volcadas
