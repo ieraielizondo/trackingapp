@@ -17,12 +17,12 @@
 				if(oculto==0)
 				{
 					oculto=1;
-					$('#lbMostrar').text("Mostrar/ Ocultar ↓");
+					$('#lbMostrar').text("Mostrar/ Ocultar registro ↓");
 				}
 				else
 				{
 					oculto=0;
-					$('#lbMostrar').text("Mostrar/ Ocultar ↑");
+					$('#lbMostrar').text("Mostrar/ Ocultar registro ↑");
 				}
 			});
 		});
@@ -48,8 +48,7 @@
     		<!-- Collect the nav links, forms, and other content for toggling -->
     		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     			<ul class="nav navbar-nav navbar-right">
-    				<!--<li><audio src="./Vista/audio.mp3" preload="auto" controls autoplay></audio></li>-->
-        			<li><a href="#">Link</a></li>			
+    				<!--<li><audio src="./Vista/audio.mp3" preload="auto" controls autoplay></audio></li>-->        					
       			</ul>
     		</div><!-- /.navbar-collapse -->
   		</div><!-- /.container-fluid -->
@@ -95,7 +94,7 @@
 						</div>																			
 					</form>					
 				</div><!--div Login-->
-				<label style="font-size:12px" id="lbMostrar">Mostrar/ Ocultar ↓</label>
+				<label style="font-size:12px" id="lbMostrar">Mostrar/ Ocultar <b>registro</b> ↓</label>
 				<hr>
 				<div id="Registro" class="Registro">
 					<h2>Registro</h2>
@@ -103,7 +102,7 @@
 						<div class="form-group">
 							<label for="txtRegIdUsuario" class="col-sm-3 control-label">Nombre de usuario</label>
 							<div class="col-sm-9">
-								<input class="form-control" id="txtRegIdUsuario" type="text" name="idUsuario" placeholder="Id usuario" required>
+								<input class="form-control" id="txtRegIdUsuario" type="text" name="idUsuario" placeholder="Introduce el nombre el usuario" required>
 							</div>
 						</div>
 						<div class="form-group">
@@ -125,15 +124,15 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="txtRegApe1" class="col-sm-3 control-label">Apellido 1</label>
+							<label for="txtRegApe1" class="col-sm-3 control-label">Primer apellido</label>
 							<div class="col-sm-9">
-								<input class="form-control" id="txtRegApe1" type="text" name="ape1" placeholder="Introduce apellido 1" required>
+								<input class="form-control" id="txtRegApe1" type="text" name="ape1" placeholder="Introduce primer apellido" required>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="txtRegApe2" class="col-sm-3 control-label">Apellido 2</label>
+							<label for="txtRegApe2" class="col-sm-3 control-label">Segundo apellido</label>
 							<div class="col-sm-9">
-								<input class="form-control" id="txtRegApe2" type="text" name="ape2" placeholder="Introduce apellido 2" >
+								<input class="form-control" id="txtRegApe2" type="text" name="ape2" placeholder="Introduce segundo apellido" >
 							</div>
 						</div>
 						<div class="form-group">
