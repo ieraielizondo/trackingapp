@@ -8,6 +8,16 @@
 		};
 
 		var map = new google.maps.Map($('#mapa')[0],config);
-
 		
+		var marcador=new google.maps.Marker({
+			position:punto,
+			title:"Mi casa",
+			map:map,
+			animation:google.maps.Animation.BOUNCE,
+			draggable:false
+		});
+		marcador.setMap(map);
+		google.maps.event.addListener(map,"click",function(){
+			alert("hola");
+		});
 	}

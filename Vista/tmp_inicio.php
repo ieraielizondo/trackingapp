@@ -35,7 +35,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['nombre']." ".$_SESSION['apellido'] ?><span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#"><span class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span> Perfil</a></li>
-                <li><a href="#"><span class="pull-right hidden-xs showopacity glyphicon glyphicon-off"></span> Cerrar sesi&oacute;n</a></li>                  
+                <li><a href="logout"><span class="pull-right hidden-xs showopacity glyphicon glyphicon-off"></span> Cerrar sesi&oacute;n</a></li>                  
               </ul>
             </li>     
             </ul>

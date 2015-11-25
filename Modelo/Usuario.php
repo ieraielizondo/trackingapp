@@ -1,6 +1,6 @@
 <?php
-include 'Control/BD/BD.php';
-include 'CorreoUser.php';
+include_once 'Control/BD/BD.php';
+include_once 'CorreoUser.php';
 require_once 'Utils.php';
  class Usuario{
 	
@@ -247,36 +247,39 @@ require_once 'Utils.php';
 	}
 
 	public static function comprobarUsuario($idUsuario,$pass){
-		$retVal=true;
+		$retVal=1;
 		Utils::escribeLog('inicio comprobar usuario','debug');
 
 		//comprobar en bd
 		
 		try{
-			$sql="SELECT id_usuario,nombre,apellido1 FROM usuario WHERE id_usuario LIKE :id AND pass LIKE :pass";
+			$sql="SELECT id_usuario,nombre,apellido1,validado FROM usuario WHERE id_usuario LIKE :id AND pass LIKE :pass";
 			$comando=Conexion::getInstance()->getDb()->prepare($sql);
 			$comando->execute(array(":id"=>$idUsuario,":pass"=>md5($pass)));
 
 		}catch(PDOException $e){
 			Utils::escribeLog("Error: ".$e->getMessage()." | Fichero: ".$e->getFile()." | Línea: ".$e->getLine()." ","debug");
-			$retval=false;
+			$retval=0;
 			return $retVal;
 
 		}
 
 		$cuenta=$comando->rowCount();
 		if($cuenta==0){
-			$retVal=false;
+			$retVal=0;
 			return $retVal;
-		}
+		} 
+
 		$datos=$comando->fetch(PDO::FETCH_ASSOC);
-		$_SESSION['id_usuario']=$datos['id_usuario'];
-		$_SESSION['nombre']=$datos['nombre'];
-		$_SESSION['apellido']=$datos['apellido1'];
-		return $retVal;
+		if($datos['validado']==0){
+			$retVal=2;
+			return $retVal;			
+		}else{
+			$_SESSION['id_usuario']=$datos['id_usuario'];
+			$_SESSION['nombre']=$datos['nombre'];
+			$_SESSION['apellido']=$datos['apellido1'];
+			return $retVal;
+		}		
 	}
 }
-
-
-
 ?>

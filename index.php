@@ -40,10 +40,13 @@
 		if(isset($usr) && isset($pass))
 		{
 			$result=Usuario::comprobarUsuario($usr,$pass);
-			if($result){
+			if($result==1){
 				$app->redirect($app->urlFor('Inicio'));
-			}else{
+			}else if($result==0){
 				$app->flash('message',"No existe el usuario");
+				$app->redirect($app->urlFor('Inicio'));
+			}else {
+				$app->flash('message',"El usuario no está validado, valida para poder acceder.");
 				$app->redirect($app->urlFor('Inicio'));
 			}
 		}else
@@ -93,7 +96,6 @@
 			$mensaje="usr_OK_em_F";
 			$app->redirect($app->urlfor('resultado',array('mensaje'=>$mensaje)));
 		}	
-		
 	});
 
 	$app->get('/usuario/validar/:correo/:key',function($correo,$key) use($app){
@@ -143,6 +145,18 @@
 		}		
 	})->name('PaginaInicio');
 
+	$app->post('/addPos',function() use($app){
+		require_once 'PosicionUsuario.php';
+		$req=$app->request();
+		$id_usuario=$_SESSION['id_usuario'];
+		$lat=$req->post('lat');
+		$long=$req->post('long');
+
+		PosicionUsuario::nuevaPosicion($id_usuario,$lat,$long);
+
+
+
+	});
 
 	$app->get('/result/:mensaje',function($mensaje) use($app){
 		/*
@@ -174,8 +188,12 @@
 			$mensaje="Usuario validado, falló envío correo.";
 		}
 		$app->render('info.php',array('mensaje'=>$mensaje));
-
 	})->name('resultado');
+
+	$app->get('/logout',function()use ($app){
+		session_destroy();
+		$app->redirect($app->urlFor('Inicio'));
+	});
 
 	$app->run();
 ?>
