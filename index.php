@@ -151,11 +151,19 @@
 		$id_usuario=$_SESSION['id_usuario'];
 		$lat=$req->post('lat');
 		$long=$req->post('long');
+		$resp=[];
+		$result=PosicionUsuario::nuevaPosicion($id_usuario,$lat,$long);
 
-		PosicionUsuario::nuevaPosicion($id_usuario,$lat,$long);
+		if($result){
+			$resp['estado']="ok";
+			$resp['mensaje']="Insertado correctamente";
 
+		}else{
+			$resp['estado']="ko";
+			$resp['mensaje']="Fallo al insertar";
+		}
 
-
+		echo json_encode($resp);
 	});
 
 	$app->get('/result/:mensaje',function($mensaje) use($app){

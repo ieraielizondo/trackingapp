@@ -13,11 +13,15 @@
 			position:punto,
 			title:"Mi casa",
 			map:map,
-			animation:google.maps.Animation.BOUNCE,
+			animation:google.maps.Animation.DROP,
 			draggable:false
 		});
 		marcador.setMap(map);
 		google.maps.event.addListener(map,"click",function(){
 			alert("hola");
 		});
+	}
+
+	function nuevoMarcador(lat,long,titulo){
+
 	}

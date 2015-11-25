@@ -84,7 +84,7 @@ require_once 'Utils.php';
 
 			}catch(PDOException $e){
 				Utils::escribeLog("Error: ".$e->getMessage()." | Fichero: ".$e->getFile()." | Línea: ".$e->getLine()." [Error al insertar posicion]","debug");
-				$retVal=0;
+				$retVal=false;
 				return $retVal;
 			}
 			
@@ -92,8 +92,7 @@ require_once 'Utils.php';
 
 			if($cuenta==0)//si no ha afectado a ninguna línea...
 			{
-				$retVal=0;
-				return $retVal;
+				$retVal=false;				
 			}
 			return $retVal;
 

@@ -90,13 +90,18 @@ Contenido
 	#cont-fluid {
 		height: 100%;
 		width: 100%;
+		padding-left: 10px;
+		padding-top: 10px;
+		padding-right: 10px;
 		background-color: red;
+		margin: 0 auto;
 	}
 	#mapa {
-		height: 800px;
-		width: 1000px;
+		height: 600px;
+		border-radius: 4px;
 		float: left;
-	}
+		margin-bottom: 10px;
+	}/*
 	#panel-izda{
 		height: 800px;
 		width: 250px;
