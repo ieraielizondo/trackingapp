@@ -146,13 +146,22 @@
 	})->name('PaginaInicio');
 
 	$app->post('/addPos',function() use($app){
-		require_once 'PosicionUsuario.php';
+		require_once 'Modelo/PosicionUsuario.php';
+		require_once 'Modelo/Utils.php';
+		sleep(1.5);
 		$req=$app->request();
 		$id_usuario=$_SESSION['id_usuario'];
+		$titulo=$req->post('titulo');
 		$lat=$req->post('lat');
 		$long=$req->post('long');
-		$resp=[];
-		$result=PosicionUsuario::nuevaPosicion($id_usuario,$lat,$long);
+		$resp=array();
+
+		if(!isset($titulo)&&!isset($lat)&&!isset($long)){
+			$result=false;
+			Utils::escribeLog("titulo,latitud y longitud sin valor!!!!","debug");
+		}else{
+			$result=PosicionUsuario::nuevaPosicion($id_usuario,$titulo,$lat,$long);
+		}
 
 		if($result){
 			$resp['estado']="ok";
@@ -166,6 +175,33 @@
 		echo json_encode($resp);
 	});
 
+	$app->get('/getAllPos',function(){
+		require_once 'Modelo/PosicionUsuario.php';
+		require_once 'Modelo/Utils.php';
+		$id_usuario=$_SESSION['id_usuario'];
+		sleep(2);
+		//$id_usuario="Ierai";
+		$resp=array();
+
+		if(!isset($id_usuario)){
+			$resultado=null;
+			Utils::escribeLog("titulo sin valor!!!! [/getAllPos]","debug");
+		}else{
+			$resultado=PosicionUsuario::getPosicionesByUsuario($id_usuario);
+		}
+
+		if(!is_null($resultado)){
+			$resp['estado']="ok";
+			$resp['mensaje']=$resultado;
+
+		}else{
+			$resp['estado']="ko";
+			$resp['mensaje']="No hay posiciones.";
+		}
+
+		echo json_encode($resp);
+
+	});
 	$app->get('/result/:mensaje',function($mensaje) use($app){
 		/*
 		-err_reg_usr-->Error al registrar el usuario

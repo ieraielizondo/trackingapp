@@ -12,7 +12,7 @@
 </head>
 <body>    
 	<nav id="cabecera" class="navbar navbar-default">
-	<div class="container">
+	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
 		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -44,7 +44,7 @@
 	</nav>
 
 	<div id="cont-fluid" class="row">
-		<div id="panel-izda" class="col-md-3">
+		<div id="panel-izda" class="col-xs-12 col-md-3">
 				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="headingOne">
@@ -58,8 +58,8 @@
 							<div class="panel-body">
 								<form id="formNuevo">
 									<div class="form-group">
-										<label for="exampleInputEmail1">Titulo</label>
-										<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Título">
+										<label for="txtTitulo">Titulo</label>
+										<input type="text" class="form-control" id="txtTitulo" name="titulo" placeholder="Título">
 									</div>
 									<div class="form-group">
 										<label for="inputLat">Latitud</label>
@@ -68,10 +68,9 @@
 									<div class="form-group">
 										<label for="inputLong">Longitud</label>
 										<input type="text" class="form-control" id="inputLong" name="long" readonly placeholder="Longitud">
+										<span id="lblEstado" class=""></span>
 									</div>							
-									
-									</div>
-									<button id="btnGuardar" type="submit" class="btn btn-success">Guardar</button>
+									<button id="btnGuardar" type="button" class="btn btn-success">Guardar</button>
 								</form>
 							</div>
 						</div>
@@ -106,8 +105,18 @@
 				</div>
 			</div>
 		</div>
-		<div id="mapa" class="col-md-9">
+		<div id="mapa" class="col-xs-12 col-md-9">
 		</div>
+	</div>
+	<div class="navbar navbar-default navbar-fixed-bottom">
+		<div class="container">
+			<p class="navbar-text pull-left">Created by <strong>Ierai Elizondo</strong></p>
+			<a href="https://github.com/ieraielizondo">
+				<button class="navbar-btn btn btn-primary">
+					<img id="logobt" src="img/GH_bt.png">See GitHub profile
+				</button>
+			</a>
+		</div>		
 	</div>
 
 	<script type="text/javascript" src="./Vista/js/maps.js"></script>

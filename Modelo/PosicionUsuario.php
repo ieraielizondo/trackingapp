@@ -4,14 +4,16 @@ require_once 'Utils.php';
 	class PosicionUsuario{
 		private $idPosicion;
 	    private $id_usuario;
+	    private $titulo;
 		private $latitud;
 	    private $longitud;
 	    private $fecha;
 
-	    public function __construct($idPos,$idUsu,$lat,$long,$fecha){
+	    public function __construct($idPos,$idUsu,$titulo,$lat,$long,$fecha){
 
 	    	$this->idPosicion=$idPos;
 		    $this->id_usuario=$idUsu;
+		    $this->titulo=$titulo;
 			$this->latitud=$lat;
 		    $this->longitud=$long;
 		    $this->fecha=$fecha;
@@ -39,6 +41,16 @@ require_once 'Utils.php';
 		public function getIdUsuario()
 		{
 			return $this->id_usuario;
+		}
+
+		//TITULO
+		public function setTitulo($titulo)
+		{
+			$this->titulo=$titulo;
+		}
+		public function getTitulo()
+		{
+			return $this->titulo;
 		}
 
 		//LATITUD
@@ -71,15 +83,16 @@ require_once 'Utils.php';
 			return $this->fecha;
 		}
 
-		public static function nuevaPosicion($id_usuario,$latitud,$longitud){
-			var $retVal=true;
-
+		public static function nuevaPosicion($id_usuario,$titulo,$latitud,$longitud){
+			$retVal=true;
+			Utils::escribeLog("usu: ".$id_usuario." Titulo: ".$titulo." LAT: ".$latitud." LONG: ".$longitud,"debug");
 			try{
 				//si la cuenta da 0 insertar
-				$sql="INSERT INTO posicion(id_usuario,latitud,longitud)VALUES(:id,:lat,:long)";			
+				$sql="INSERT INTO posicion(id_usuario,titulo,latitud,longitud)VALUES(:id,:titulo,:lat,:long)";			
 				$comando=Conexion::getInstance()->getDb()->prepare($sql);
 				$comando->execute(array(":id"=>$id_usuario,
-					":lat"=>$latitud),
+					":titulo"=>$titulo,
+					":lat"=>$latitud,
 					":long"=>$longitud));
 
 			}catch(PDOException $e){
@@ -96,6 +109,32 @@ require_once 'Utils.php';
 			}
 			return $retVal;
 
+		}
+
+		public static function getPosicionesByUsuario($id_usuario){
+			$posiciones=array();
+			
+			try{
+				//si la cuenta da 0 insertar
+				$sql="SELECT id_usuario,titulo,latitud,longitud FROM posicion WHERE id_usuario LIKE :id";			
+				$comando=Conexion::getInstance()->getDb()->prepare($sql);
+				$comando->execute(array(":id"=>$id_usuario));
+
+			}catch(PDOException $e){
+				Utils::escribeLog("Error: ".$e->getMessage()." | Fichero: ".$e->getFile()." | Línea: ".$e->getLine()." [Error al insertar posicion]","debug");
+				$posiciones=null;
+				return $posiciones;
+			}
+			
+			$cuenta=$comando->rowCount();
+
+			if($cuenta==0)//si no ha afectado a ninguna línea...
+			{
+				$posiciones=null;
+				return $posiciones;			
+			}
+			$posiciones=$comando->fetchAll(PDO::FETCH_ASSOC);
+			return $posiciones;
 		}
 	} 
 ?>
