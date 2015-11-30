@@ -54,14 +54,14 @@
 			form.addClass("busy");		
 			$.ajax({
 				type:"POST",
-				url:"http://192.168.1.7:8080/trackingapp/addPos",
+				url:"http://localhost/workspace/Servidor/PHP/trackingapp/addPos",
+				//url:"http://192.168.1.7:8080/trackingapp/addPos",
 				dataType:"JSON",
 				data:datos,
 				success:function(data){
 					console.log(data);
 					if(data.estado=="ok"){
-						//Poner que se ha completado
-						console.log("ok");
+						//Poner que se ha completado						
 						label_estado.removeClass("label-warning")
 						.addClass("label-success")
 						.text(data.mensaje)
@@ -82,10 +82,11 @@
 				beforeSend:function(data){
 					//poner el label a Guardando...
 					label_estado.removeClass("label-success")
-					.addClass("label label-warning")
+					.addClass("label-warning")
 					.text("Guardando...")
-					.delay(2000)
-					.slideUp("slow","swing");
+					.slideDown("slow","swing")
+					.delay(2000);
+					
 				},
 				complete:function(){
 					form.removeClass("busy");
@@ -106,7 +107,8 @@
 	function getPosiciones(){
 		$.ajax({
 			type:"GET",
-			url:"http://192.168.1.7:8080/trackingapp/getAllPos",
+			url:"http://localhost/workspace/Servidor/PHP/trackingapp/getAllPos",
+			//url:"http://192.168.1.7:80/trackingapp/getAllPos",
 			dataType:"JSON",
 			data:"",
 			success:function(data){
@@ -131,6 +133,7 @@
 
 	function initMap() {
 		form=$("#formNuevo");
+
 		var punto=new google.maps.LatLng(43.308615, -1.893189);
 		var config={
 			zoom:16,
@@ -139,16 +142,27 @@
 		};
 
 		mapa = new google.maps.Map($('#mapa')[0],config);
+		var infoWindow = new google.maps.InfoWindow({map: mapa});
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				var pos = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude
+      			};
+				infoWindow.setPosition(pos);
+				infoWindow.setContent('Location found.');
+				map.setCenter(pos);
+			}, 
+			function() {
+      			handleLocationError(true, infoWindow, map.getCenter());
+    		});
+		} else {
+		    // Browser doesn't support Geolocation
+		    handleLocationError(false, infoWindow, map.getCenter());
+		}
 		
-		var marcador=new google.maps.Marker({
-			position:punto,
-			title:"Mi casa",
-			map:mapa,
-			animation:google.maps.Animation.DROP,
-			draggable:false
-		});
-		marcador.setMap(mapa);
 		getPosiciones();
+
 		google.maps.event.addListener(mapa,"click",function(event){
 			var coordenadas=event.latLng.toString();
 			var titulo=prompt("Titulo:")

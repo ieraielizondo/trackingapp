@@ -86,7 +86,7 @@ require_once 'Utils.php';
 
 		public static function nuevaPosicion($id_usuario,$titulo,$latitud,$longitud){
 			$retVal=true;
-			Utils::escribeLog("usu: ".$id_usuario." Titulo: ".$titulo." LAT: ".$latitud." LONG: ".$longitud,"debug");
+			//Utils::escribeLog("usu: ".$id_usuario." Titulo: ".$titulo." LAT: ".$latitud." LONG: ".$longitud,"debug");
 			try{
 				//si la cuenta da 0 insertar
 				$sql="INSERT INTO posicion(id_usuario,titulo,latitud,longitud)VALUES(:id,:titulo,:lat,:long)";			

@@ -69,7 +69,7 @@
 									<div class="form-group">
 										<label for="inputLong">Longitud</label>
 										<input type="text" class="form-control" id="inputLong" name="long" readonly placeholder="Longitud">
-										<span id="lblEstado" class=""></span>
+										<span id="lblEstado" class="label"></span>
 									</div>							
 									<button id="btnGuardar" type="button" class="btn btn-success">Guardar</button>
 								</form>

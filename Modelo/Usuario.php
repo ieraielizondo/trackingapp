@@ -134,7 +134,7 @@ require_once 'Utils.php';
 			$retVal=2;
 			return $retVal;
 		}		
-		Utils::escribeLog("IdUsuario y/o correo no existentes en la BBDD -> OK","debug");
+		//Utils::escribeLog("IdUsuario y/o correo no existentes en la BBDD -> OK","debug");
 		try{
 			//si la cuenta da 0 insertar
 			$sql="INSERT INTO usuario(id_usuario,pass,nombre,apellido1,apellido2,email,key_usuario)VALUES

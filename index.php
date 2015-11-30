@@ -1,6 +1,5 @@
 <?php
 
-
 	session_start();
 
 	require 'vendor/autoload.php';
@@ -68,7 +67,7 @@
 		$email=$req->post("email");
 
 		$result=Usuario::nuevoUsuario($id_usuario,$pass,$nombre,$ape1,$ape2,$email);
-		//0->KO / 1->OK / 2->Existe el usuario
+		//0->KO / 1->OK / 2->Existe el usuario / 3->registro OK correo KO
 		/*Códigos de mensajes= 
 		
 		-err_reg_usr-->Error al registrar el usuario
@@ -181,7 +180,7 @@
 		require_once 'Modelo/Utils.php';
 		$id_usuario=$_SESSION['id_usuario'];
 		sleep(2);
-		//$id_usuario="Ierai";
+		
 		$resp=array();
 
 		if(!isset($id_usuario)){
