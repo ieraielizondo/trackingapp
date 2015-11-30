@@ -7,50 +7,18 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0">
 	<script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="./js/bootstrap.min.js"></script>
-	<script>
-		$(document).ready(function () {
-			$('#Registro').hide();
-			var oculto=1;
-
-			$('#lbMostrar').click(function(){
-				$('#Registro').slideToggle("slow");
-				if(oculto==0)
-				{
-					oculto=1;
-					$('#lbMostrar').text("Mostrar/ Ocultar registro ↓");
-				}
-				else
-				{
-					oculto=0;
-					$('#lbMostrar').text("Mostrar/ Ocultar registro ↑");
-				}
-			});
-		});
-	</script>
+	<script type="text/javascript" src="./Vista/js/login.js"></script>
 </head>
 <body>		
 	<nav id="cabecera" class="navbar navbar-default">
 		<div class="container">
 			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-			        <span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
+			<div class="navbar-header">				
 				<a id="titulo" href="#">
 					<span class="site-name">TrackingApp</span>
 					<span class="site-desc">Web de tracking.</span>
 				</a>
 			</div>
-
-    		<!-- Collect the nav links, forms, and other content for toggling -->
-    		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    			<ul class="nav navbar-nav navbar-right">
-    				<!--<li><audio src="./Vista/audio.mp3" preload="auto" controls autoplay></audio></li>-->        					
-      			</ul>
-    		</div><!-- /.navbar-collapse -->
   		</div><!-- /.container-fluid -->
 	</nav>
 <main>
@@ -75,14 +43,21 @@
 						<div class="form-group">
 							<label for="txtLogPass" class="col-sm-3 control-label">Contrase&ntilde;a</label>
 							<div class="col-sm-9">
-								<input class="form-control" id="txtLogPass" type="password" name="pass" placeholder="Introduce contraseña" required>
+								<div class="input-group">									
+									<input class="form-control" id="txtLogPass" type="password" name="pass" placeholder="Introduce contraseña" required>
+									<div class="input-group-btn" type="button">
+										<button id="verPass" type="button" class="btn btn-default">
+											<span id="verPassIcon" id="verPass" class="glyphicon glyphicon-eye-open"></span>
+										</button>
+									</div>									
+								</div>								
 							</div>
-						</div>
+						</div>						
 						<div class="form-group">
 							<div class="col-sm-offset-0 col-sm-10">
 								<div class="checkbox">
 									<label>
-										<input type="checkbox"> Recuérdame
+										<input type="checkbox"> Recu&eacute;rdame
 									</label>
 								</div>
 							</div>
@@ -94,7 +69,7 @@
 						</div>																			
 					</form>					
 				</div><!--div Login-->
-				<label style="font-size:12px" id="lbMostrar">Mostrar/ Ocultar <b>registro</b> ↓</label>
+				<label style="font-size:12px" id="lbMostrar">Mostrar/ Ocultar <b>registro</b> <span id="flecha"></span></label>
 				<hr>
 				<div id="Registro" class="Registro">
 					<h2>Registro</h2>
@@ -108,13 +83,28 @@
 						<div class="form-group">
 							<label for="txtRegPass" class="col-sm-3 control-label">Contrase&ntilde;a</label>
 							<div class="col-sm-9">
-								<input class="form-control" id="txtRegPass" type="password" name="pass" placeholder="Introduce contraseña" required>
+								<div class="input-group">									
+									<input class="form-control" id="txtRegPass" type="password" name="pass" placeholder="Introduce contraseña" required>
+									<div class="input-group-btn" type="button">
+										<button id="verPass2" type="button" class="btn btn-default">
+											<span id="verPass2Icon" class="glyphicon glyphicon-eye-open"></span>
+										</button>
+									</div>									
+								</div>								
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="txtLogPasss" class="col-sm-3 control-label">Repite contrase&ntilde;a</label>
+							<label for="txtRegPass2" class="col-sm-3 control-label">Repite contrase&ntilde;a</label>
 							<div class="col-sm-9">
-								<input class="form-control" id="txtRegPass" type="password" placeholder="Introduce de nuevo la contraseña" required>
+								<div class="input-group">									
+									<input class="form-control" id="txtRegPass2" type="password" placeholder="Introduce de nuevo la contraseña" required>
+									<div class="input-group-btn" type="button">
+										<button id="verPass3" type="button" class="btn btn-default">
+											<span id="verPass3Icon" class="glyphicon glyphicon-eye-open"></span>
+										</button>
+									</div>									
+								</div>
+								
 							</div>
 						</div>
 						<div class="form-group">

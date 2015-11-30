@@ -1,8 +1,9 @@
  <?php
 
-	require 'class.phpmailer.php';
-	include 'class.smtp.php';
-	
+	require_once 'class.phpmailer.php';
+	include_once 'class.smtp.php';
+	include_once 'keys.php';
+		
 	require_once 'Utils.php';
 	//require '../vendor/phpmailer/PHPMailerAutoLoad.php';
 	date_default_timezone_set('Etc/UTC');
@@ -16,14 +17,14 @@
 		public function __construct(){
 			$this->host='smtp.gmail.com';
 			$this->port=587;
-			$this->usernameFrom='\Correo/@gmail.com';
-			$this->pass='\Pass/';
+			$this->usernameFrom=CORREO;
+			$this->pass=PASS;
 		}
 
 		public function enviarCorreoRegistro($idUsuario,$Nombre,$ape1,$ape2="",$correo,$key){
 			$retVal=true;
 			Utils::escribeLog("Inicio PHPMailer","debug");
-			$URL=$this->getURL($correo,$key,true);
+			$URL="http://trackingapp-ieraielizondo.rhcloud.com/usuario/validar/".$correo."/".$key;
 			try{
 				$mail = new PHPMailer();
 				$mail->isSMTP();
@@ -77,7 +78,7 @@
 		public function enviarConfirmValidacion($Nombre,$ape1,$ape2="",$correo){
 			$retVal=true;
 			Utils::escribeLog("Inicio PHPMailer confirmValidar","debug");
-			$URL=$this->getURL();			
+			$URL="http://trackingapp-ieraielizondo.rhcloud.com";			
 			try{
 				$mail = new PHPMailer();
 				$mail->isSMTP();
@@ -125,30 +126,6 @@
 			}
 			
 			return $retVal;
-
-		}
-
-		function getURL($correo="",$key="",$validar=false){
-			require_once 'Control/BD/mysql_login.php';
-			$strURL="http://localhost:".PUERTO;
-			
-			if(PUERTO==="80")//clase
-			{
-				$strURL.="/workspace/Servidor/PHP";
-			}
-			if(!$validar){
-				$strURL.="/trackingapp/";
-			}else{
-				$strURL.="/trackingapp/usuario/validar/".$correo."/".$key;
-			}
-
-			return $strURL;
-		}
-
-		
+		}		
 	}
-
-	
-
-
 ?>

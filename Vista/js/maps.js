@@ -54,8 +54,8 @@
 			form.addClass("busy");		
 			$.ajax({
 				type:"POST",
-				url:"http://localhost/workspace/Servidor/PHP/trackingapp/addPos",
-				//url:"http://192.168.1.7:8080/trackingapp/addPos",
+				//url:"http://localhost/workspace/Servidor/PHP/trackingapp/addPos",
+				url:"http://192.168.1.7:8080/trackingapp/addPos",
 				dataType:"JSON",
 				data:datos,
 				success:function(data){
@@ -107,8 +107,8 @@
 	function getPosiciones(){
 		$.ajax({
 			type:"GET",
-			url:"http://localhost/workspace/Servidor/PHP/trackingapp/getAllPos",
-			//url:"http://192.168.1.7:80/trackingapp/getAllPos",
+			//url:"http://localhost/workspace/Servidor/PHP/trackingapp/getAllPos",
+			url:"http://192.168.1.7:8080/trackingapp/getAllPos",
 			dataType:"JSON",
 			data:"",
 			success:function(data){
@@ -150,8 +150,8 @@
 					lng: position.coords.longitude
       			};
 				infoWindow.setPosition(pos);
-				infoWindow.setContent('Location found.');
-				map.setCenter(pos);
+				infoWindow.setContent('Posición actual (aproximada)');
+				mapa.setCenter(pos);
 			}, 
 			function() {
       			handleLocationError(true, infoWindow, map.getCenter());
