@@ -16,21 +16,17 @@
 
 	$app-> map('/',function() use ($app){
 		
-		if(!isset($_SESSION['id_usuario']))
-		{
+		if(!isset($_SESSION['id_usuario'])){
 			//render login
 			$app->render('tmp_login.php');
 		}
-		else
-		{
+		else{
 			//enviar al inicio
-			$app->redirect($app->urlFor('PaginaInicio'));
-			//$app->render(/*Página de inicio con el usuario*/,array('iduser' =>$_SESSION['idUser'] ));
+			$app->redirect($app->urlFor('PaginaInicio'));			
 		}	
 	})->via('GET')->name('Inicio');
-
 	 
-
+	//Login
 	$app-> post('/login',function() use ($app){
 		require_once 'Modelo/Usuario.php';
 		
@@ -56,6 +52,7 @@
 		}
 	});
 
+	//Registro usuario
 	$app->post('/registro',function() use($app){
 		require_once 'Modelo/Usuario.php';
 		require_once 'Modelo/Utils.php';
@@ -97,7 +94,8 @@
 			$app->redirect($app->urlfor('resultado',array('mensaje'=>$mensaje)));
 		}	
 	});
-
+	
+	//Validar usuario
 	$app->get('/usuario/validar/:correo/:key',function($correo,$key) use($app){
 		require_once 'Modelo/Usuario.php';
 		require_once 'Modelo/Utils.php';
@@ -130,7 +128,8 @@
 		}
 		
 	 });
-
+	
+	//Página de inicio
 	$app->get('/inicio',function() use ($app){
 		if(!isset($_SESSION['id_usuario']))
 		{
@@ -145,6 +144,7 @@
 		}		
 	})->name('PaginaInicio');
 
+	//Añadir posicion
 	$app->post('/addPos',function() use($app){
 		require_once 'Modelo/PosicionUsuario.php';
 		require_once 'Modelo/Utils.php';
@@ -175,6 +175,7 @@
 		echo json_encode($resp);
 	});
 
+	//Traer posiciones del usuario
 	$app->get('/getAllPos',function(){
 		require_once 'Modelo/PosicionUsuario.php';
 		require_once 'Modelo/Utils.php';

@@ -54,7 +54,7 @@
 			form.addClass("busy");		
 			$.ajax({
 				type:"POST",
-				url:"http://localhost:8080/trackingapp/addPos",
+				url:"http://192.168.1.7:8080/trackingapp/addPos",
 				dataType:"JSON",
 				data:datos,
 				success:function(data){
@@ -106,7 +106,7 @@
 	function getPosiciones(){
 		$.ajax({
 			type:"GET",
-			url:"http://localhost:8080/trackingapp/getAllPos",
+			url:"http://192.168.1.7:8080/trackingapp/getAllPos",
 			dataType:"JSON",
 			data:"",
 			success:function(data){

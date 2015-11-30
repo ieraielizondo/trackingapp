@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin: *'); 
 include_once 'Control/BD/BD.php';
 require_once 'Utils.php';
 	class PosicionUsuario{
