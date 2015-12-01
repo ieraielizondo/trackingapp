@@ -1,4 +1,4 @@
 <?php
-	define("CORREO","trackingapp@gmail.com");
+	define("CORREO","trackingappzm@gmail.com");
 	define("PASS","TrackingAppZubiri");
 ?>

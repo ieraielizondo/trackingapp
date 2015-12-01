@@ -41,7 +41,7 @@
 				$app->flash('message',"No existe el usuario");
 				$app->redirect($app->urlFor('Inicio'));
 			}else {
-				$app->flash('message',"El usuario no está validado, valida para poder acceder.");
+				$app->flash('message',"El usuario no est&aacute; validado, valida para poder acceder.");
 				$app->redirect($app->urlFor('Inicio'));
 			}
 		}else
@@ -217,7 +217,7 @@
 		if($mensaje==='err_reg_usr'){
 			$mensaje="Error al registrar el usuario.";
 		}else if($mensaje==='usr_reg_OK'){
-			$mensaje="Usuario registrado correctamente.";
+			$mensaje="Usuario registrado correctamente. Se le ha enviado un correo de verificación. Por favor, revise el correo.";
 		}else if($mensaje==='usr_em_exist'){
 			$mensaje="Usuario o email existentes.";
 		}else if($mensaje==='usr_OK_em_F'){
