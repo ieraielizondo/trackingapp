@@ -54,8 +54,7 @@
 			form.addClass("busy");		
 			$.ajax({
 				type:"POST",
-				//url:"http://localhost/workspace/Servidor/PHP/trackingapp/addPos",
-				url:"http://192.168.1.7:8080/trackingapp/addPos",
+				url:"http://trackingapp-ieraielizondo.rhcloud.com/addPos",
 				dataType:"JSON",
 				data:datos,
 				success:function(data){
@@ -106,9 +105,8 @@
 	//Funcion para traer los puntos insertados en bd
 	function getPosiciones(){
 		$.ajax({
-			type:"GET",
-			//url:"http://localhost/workspace/Servidor/PHP/trackingapp/getAllPos",
-			url:"http://192.168.1.7:8080/trackingapp/getAllPos",
+			type:"GET",			
+			url:"http://trackingapp-ieraielizondo.rhcloud.com/getAllPos",
 			dataType:"JSON",
 			data:"",
 			success:function(data){
