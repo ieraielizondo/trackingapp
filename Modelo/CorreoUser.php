@@ -51,15 +51,15 @@
 
 				//$urlValidar=getURLValidar($correo,$key);			
 
-				$mensaje="<h1>Bienvenido/a ".$Nombre." ".$ape1;
+				$mensaje="<div><h1>Bienvenido/a ".$Nombre." ".$ape1;
 				if($ape2!="")
 				{
 					$mensaje.=" ".$ape2;
 				}
-				$mensaje.=' a trackingApp</h1><br/><br/><p>Gracias por incribirse en la app <b>TrackingApp</b></p><br/>
+				$mensaje.=' a trackingApp</h1><br/><p>Gracias por incribirse en la app <b>TrackingApp</b></p><br/>
 					<p>Su nombre de usuario: '.$idUsuario.'</p>Su correo: '.$correo.'
 					<p>Ha sido inscrito correctamente, para poder acceder a la aplicación debe validar su usuario. Para validar, pulse en el siguiente enlace para validar:</p> 
-					<p><a href="'.$URL.'">'.$URL.'</a></p>';
+					<p><a href="'.$URL.'">'.$URL.'</a></p></div>';
 				$mail->msgHTML($mensaje);
 				
 				$mail->isHTML(true);
@@ -70,8 +70,7 @@
 				return false;
 			}catch(Exception $e){
 				Utils::escribeLog("Error: ".$e->getMessage()." | Fichero: ".$e->getFile()." | Línea: ".$e->getLine()." [Error al enviar correo]","debug");
-			}
-			
+			}			
 			return $retVal;
 		}
 
@@ -101,18 +100,16 @@
 				$mail->addReplyTo($this->usernameFrom,'Administrador de TrackingApp');
 				$mail->Subject = "Validacion de usuario realizado correctamente";
 				$mail->AltBody = "Validación correcta";
-				$mail->WordWrap= 50;
+				$mail->WordWrap= 50;	
 
-				//$urlValidar=getURLValidar($correo,$key);			
-
-				$mensaje="<h2>Bienvenido/a ".$Nombre." ".$ape1;
+				$mensaje="<div><h2>Bienvenido/a ".$Nombre." ".$ape1;
 				if($ape2!="")
 				{
 					$mensaje.=" ".$ape2;
 				}
 				$mensaje.=' a trackingApp</h2><p>Se ha confirmado correctamente su solicitud de validación de usuario en <b>TrackingApp</b></p>					
 					<p>Puede iniciar sesión y acceder a la aplicación desde aquí:</p> 
-					<p><a href="'.$URL.'">'.$URL.'</a></p>';
+					<p><a href="'.$URL.'">'.$URL.'</a></p></div>';
 				$mail->msgHTML($mensaje);
 				
 				$mail->isHTML(true);
