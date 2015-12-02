@@ -24,8 +24,8 @@
 		public function enviarCorreoRegistro($idUsuario,$Nombre,$ape1,$ape2="",$correo,$key){
 			$retVal=true;
 			Utils::escribeLog("Inicio PHPMailer","debug");
-			//$URL="http://trackingapp-ieraielizondo.rhcloud.com/usuario/validar/".$correo."/".$key;
-			$URL="localhost/workspace/Servidor/PHP/trackingapp/usuario/validar/".$correo."/".$key;
+			$URL="http://trackingapp-ieraielizondo.rhcloud.com/usuario/validar/".$correo."/".$key;
+			//$URL="localhost/workspace/Servidor/PHP/trackingapp/usuario/validar/".$correo."/".$key;
 
 			try{
 				$mail = new PHPMailer();
