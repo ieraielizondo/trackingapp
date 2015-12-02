@@ -17,7 +17,7 @@
 		<div class="container">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">				
-				<a id="titulo" href="#">
+				<a id="titulo" href="http://trackingapp-ieraielizondo.rhcloud.com/">
 					<span class="site-name">TrackingApp</span>
 					<span class="site-desc">Web de tracking.</span>
 				</a>

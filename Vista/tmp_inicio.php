@@ -24,7 +24,7 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<a id="titulo" href="#">
+		<a id="titulo" href="http://trackingapp-ieraielizondo.rhcloud.com/">
 			<span class="site-name">TrackingApp</span>
 			<span class="site-desc">Web de tracking.</span>
 		</a>
