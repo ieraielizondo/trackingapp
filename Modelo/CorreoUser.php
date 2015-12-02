@@ -1,5 +1,5 @@
  <?php
-
+	header('Content-Type: text/html; charset=ISO-8859-1');
 	require_once 'class.phpmailer.php';
 	include_once 'class.smtp.php';
 	include_once 'keys.php';
@@ -24,7 +24,9 @@
 		public function enviarCorreoRegistro($idUsuario,$Nombre,$ape1,$ape2="",$correo,$key){
 			$retVal=true;
 			Utils::escribeLog("Inicio PHPMailer","debug");
-			$URL="http://trackingapp-ieraielizondo.rhcloud.com/usuario/validar/".$correo."/".$key;
+			//$URL="http://trackingapp-ieraielizondo.rhcloud.com/usuario/validar/".$correo."/".$key;
+			$URL="localhost/workspace/Servidor/PHP/trackingapp/usuario/validar/".$correo."/".$key;
+
 			try{
 				$mail = new PHPMailer();
 				$mail->isSMTP();

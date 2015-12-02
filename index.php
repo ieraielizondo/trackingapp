@@ -147,7 +147,7 @@
 	$app->post('/addPos',function() use($app){
 		require_once 'Modelo/PosicionUsuario.php';
 		require_once 'Modelo/Utils.php';
-		sleep(1.5);
+		sleep(2);
 		$req=$app->request();
 		$id_usuario=$_SESSION['id_usuario'];
 		$titulo=$req->post('titulo');

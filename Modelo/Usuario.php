@@ -174,7 +174,7 @@ require_once 'Utils.php';
 			$retVal=3;
 			return $retVal;
 		}
-		Utils::escribeLog("Correo enviado OK","debug");			
+		Utils::escribeLog("Correo enviado a: ".$id." |Nombre: ".$nombre." ".$ape1.,"debug");			
 		return $retVal;	//si todo va OK deveria devolver 1	
 	}
 
