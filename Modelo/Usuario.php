@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: text/html; charset=ISO-8859-1');
 include_once 'Control/BD/BD.php';
 include_once 'CorreoUser.php';
 require_once 'Utils.php';
@@ -174,7 +175,7 @@ require_once 'Utils.php';
 			$retVal=3;
 			return $retVal;
 		}
-		Utils::escribeLog("Correo enviado a: ".$id." |Nombre: ".$nombre." ".$ape1.,"debug");			
+		Utils::escribeLog("Correo enviado a: ".$id." |Nombre: ".$nombre." ".$ape1,"debug");			
 		return $retVal;	//si todo va OK deveria devolver 1	
 	}
 

@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: text/html; charset=ISO-8859-1');
 header('Access-Control-Allow-Origin: *'); 
 include_once 'Control/BD/BD.php';
 require_once 'Utils.php';
