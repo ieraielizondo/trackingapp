@@ -1,12 +1,10 @@
-<?php 
-	header ('Content-type: text/html; charset=utf-8');
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
 	<title>Inicio trackingapp</title>
 	<link rel="stylesheet" type="text/css" href="./Vista/css/estilos.css">
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+	<meta http-equiv="Content-Type" content="text/html"; charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0">
 	<script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="./js/bootstrap.min.js"></script>

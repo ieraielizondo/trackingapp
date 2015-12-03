@@ -1,12 +1,10 @@
-<?php 
-	header ('Content-type: text/html; charset=utf-8');
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
 	<title>Inicio trackingapp</title>
 	<link rel="stylesheet" type="text/css" href="./Vista/css/estilos.css">
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+	<meta http-equiv="Content-Type" content="text/html"; charset="utf-8"/> 
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0">
 	<script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="./js/bootstrap.min.js"></script>
@@ -37,8 +35,8 @@
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['nombre']." ".$_SESSION['apellido'] ?><span class="caret"></span></a>
 				<ul class="dropdown-menu">
-				<li><a href="#"><span class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span> Perfil</a></li>
-				<li><a href="logout"><span class="pull-right hidden-xs showopacity glyphicon glyphicon-off"></span> Cerrar sesi&oacute;n</a></li>                  
+				<li><a href="#"><span class="showopacity glyphicon glyphicon-user"></span> Perfil</a></li>
+				<li><a href="logout"><span class="showopacity glyphicon glyphicon-off"></span> Cerrar sesi&oacute;n</a></li>                  
 				</ul>
 			</li>     
 			</ul>
