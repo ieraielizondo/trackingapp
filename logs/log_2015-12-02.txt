@@ -1,0 +1,3 @@
+[ Fecha:2015-12-02 14:59:15 | Nav: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36 | IP: ::1 | FILE: /trackingapp/index.php | Tipo: debug] Msg: inicio comprobar usuario
+[ Fecha:2015-12-02 19:21:34 | Nav: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36 | IP: ::1 | FILE: /trackingapp/index.php | Tipo: debug] Msg: inicio comprobar usuario
+[ Fecha:2015-12-02 19:22:20 | Nav: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36 | IP: ::1 | FILE: /trackingapp/index.php | Tipo: debug] Msg: inicio comprobar usuario

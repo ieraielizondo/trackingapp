@@ -1,7 +1,11 @@
 	var mapa=null;
 	var marcadores_bd=[];
 	var marcadores_nuevos=[];
+	var ruta=[];
 	var form=null;
+	var enRuta=null;
+	var geoActivado=null;
+	var infoWindow = null;
 
 	function nuevoMarcador(lat,lon,titulo){
 		quitarMarcadores(marcadores_nuevos);
@@ -127,6 +131,31 @@
 
 			}
 		});
+	}
+
+	function getLocalizacion(){
+		navigator.geolocation.getCurrentPosition(function(position) {
+				var pos = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude
+      			};
+      			infoWindow=new google.maps.InfoWindow({map: mapa});
+				infoWindow.setPosition(pos);
+				infoWindow.setContent('Posición actual (aproximada)');
+				mapa.setCenter(pos);
+			}, 
+			function() {
+      			handleLocationError(true, infoWindow, map.getCenter());
+      			geoActivado=false;
+    		});
+	}
+
+	function newRuta(){		
+		while(enRuta){
+
+
+		}
+
 	}	
 
 	function initMap() {
@@ -134,41 +163,43 @@
 
 		var punto=new google.maps.LatLng(43.308615, -1.893189);
 		var config={
-			zoom:16,
+			zoom:25,
 			center:punto,
 			mapTypeId:google.maps.MapTypeId.ROADMAP
 		};
 
 		mapa = new google.maps.Map($('#mapa')[0],config);
-		var infoWindow = new google.maps.InfoWindow({map: mapa});
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(function(position) {
-				var pos = {
-					lat: position.coords.latitude,
-					lng: position.coords.longitude
-      			};
-				infoWindow.setPosition(pos);
-				infoWindow.setContent('Posición actual (aproximada)');
-				mapa.setCenter(pos);
-			}, 
-			function() {
-      			handleLocationError(true, infoWindow, map.getCenter());
-    		});
-		} else {
-		    // Browser doesn't support Geolocation
-		    handleLocationError(false, infoWindow, map.getCenter());
+		
+		if(geoActivado){
+			getLocalizacion();
+		}else{
+			if (navigator && navigator.geolocation) {
+				geoActivado=true;
+				getLocalizacion();
+			}else {
+			    // Browser doesn't support Geolocation
+				handleLocationError(false, infoWindow, map.getCenter());
+				geoActivado=false;
+			}
 		}
 		
 		getPosiciones();
-
+		//Evento Click al mapa
 		google.maps.event.addListener(mapa,"click",function(event){
+			
 			var coordenadas=event.latLng.toString();
 			var titulo=prompt("Titulo:")
 			coordenadas=coordenadas.replace("(", "");
 			coordenadas=coordenadas.replace(")", "");
 			var lista=coordenadas.split(",");
-			
-			form.find("input[name=titulo]").val(titulo);
+
+			//Abrir desplegable 1 y focus al añadir titulo
+			if($('#acAgregarP').hasClass && $('#acAgregarP').attr('class')=="collapsed" && $('#acAgregarP').attr('aria-expanded')=="false"){
+				$('#acAgregarP').removeClass("collapsed").attr("aria-expanded","true");
+				$('#collapseOne').addClass("in");
+			}
+						
+			form.find("input[name=titulo]").val(titulo).focus();
 			form.find("input[name=lat]").val(lista[0]);
 			form.find("input[name=long]").val(lista[1]);
 			nuevoMarcador(lista[0],lista[1],titulo);
@@ -178,6 +209,10 @@
 		//Al hacer click en el boton Guardar enviar y guardar en BBDD
 		$("#btnGuardar").click(function(){
 			addPosicion();			
+		});
+
+		$("#iniRuta").click(function(){
+			newRuta();			
 		});
 	}
 

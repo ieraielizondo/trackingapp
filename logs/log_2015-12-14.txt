@@ -1,0 +1,1 @@
+[ Fecha:2015-12-14 00:41:01 | Nav: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36 | IP: ::1 | FILE: /trackingapp/index.php | Tipo: debug] Msg: inicio comprobar usuario
